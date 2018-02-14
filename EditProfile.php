@@ -60,7 +60,7 @@ $numofscrums = 4;
 
 
 
-<div class="container">
+<div class="container" align="center">
 
   <div class="col-lg-4" align="center">
 
@@ -82,18 +82,22 @@ $numofscrums = 4;
       </div>
     </div>
 
-    <label for="input-folder-1">Upload File From Folder</label>
-<div class="file-loading">
-    <input id="input-folder-1" type="file" webkitdirectory>
-</div>
-<br>
-<script>
-$(document).on('ready', function() {
-    $("#input-folder-1").fileinput({
-        browseLabel: 'Select Folder...'
+      <div class="form-row" align="center">
+        <label for="input-folder-1">Upload File From Folder</label>
+    <div class="file-loading">
+        <input id="input-folder-1" type="file" webkitdirectory>
+    </div>
+    <br>
+    <script>
+    $(document).on('ready', function() {
+        $("#input-folder-1").fileinput({
+            browseLabel: 'Select Folder...'
+        });
     });
-});
-</script>
+    </script>
+
+      </div>
+
 
 
     <button type="submit" class="btn btn-primary">Save Changes</button>

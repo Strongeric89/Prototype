@@ -1,6 +1,6 @@
 <?php
-$admin = 1;
-$numofscrums = 4;
+$admin = 0;
+$numofscrums = 5;
 
  ?>
 <!DOCTYPE html>
@@ -12,6 +12,7 @@ $numofscrums = 4;
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/styles.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -180,7 +181,7 @@ $numofscrums = 4;
 
       <?php
         if($admin == 1){
-            echo '    <div class="col-sm">
+            echo '    <div class="col-sm btn-social">
                   <div class="card box-shadow">
                      <div class="card-header">
                        <h4 class="my-0 font-weight-normal">New</h4>
@@ -201,23 +202,35 @@ $numofscrums = 4;
         }
 
         for ($x = 1; $x <= $numofscrums; $x++) {
-            echo '    <div class="col-sm">
+            echo '    <a href="boards.php"><div class="col-sm btn-social">
                   <div class="card box-shadow">
                      <div class="card-header">
-                       <h4 class="my-0 font-weight-normal">Scrum '.$x.'</h4>
+                       <h4 class="my-0 font-weight-normal" style="width:100%">Scrum '.$x.'</h4>
                      </div>
                      <div class="card-body">
                        <h1 class="card-title pricing-card-title"></h1>
                        <ul class="list-unstyled mt-3 mb-4">
 
-                       </ul>
-                       <!-- send with an id to display the correct board -->
-                       <a href="boards.php"> <button type="button" class="btn btn-lg btn-block btn-outline-primary">Board Settings</button>
-                   </a>
-                         </div>
-                   </div>
-                   <br>
-                </div>';
+                       <li> Board Details</li>
+                       <li>Date Created</li>
+
+
+
+                       </ul>';
+
+                       if($admin == 1){
+                         $ad = '<!-- send with an id to display the correct board -->
+                            <a href="BoardSettings.php"> <button type="button" class="btn btn-lg btn-block btn-outline-primary">Board Settings</button>
+                        </a>';
+                         echo $ad;
+                       }
+
+                       echo ' </div>
+                        </div>
+                        <br>
+                     </div></a>';
+
+
   }
 
        ?>

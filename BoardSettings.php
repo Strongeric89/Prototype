@@ -65,7 +65,18 @@ $numofscrums = 4;
           <th>#</th>
           <th>Board Title</th>
 
+
+
           <th>Hide / Show</th>
+          <?php
+            if($admin == 1){
+              echo '
+              <th>Edit</th>
+              <th>Remove</th>
+              ';
+
+            }
+           ?>
         </tr>
       </thead>
       <tbody>
@@ -75,10 +86,22 @@ $numofscrums = 4;
                       <td>'.$x.'</td>
                       <td>Scrum '.$x.'</td>
 
-                      <td><input type="checkbox" checked data-toggle="toggle"></td>
+                      <td><input type="checkbox" checked data-toggle="toggle"></td>';
 
-                    </tr>
-  ';
+                      if($admin == 1){
+                        echo '
+                        <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
+                      </td>
+                        <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
+                        </td>
+                        ';
+
+                        echo '</tr>';
+
+                      }
+
+
+
               }
 
          ?>

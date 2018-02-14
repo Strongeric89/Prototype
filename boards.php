@@ -17,6 +17,7 @@
 
   <!-- toggle button -->
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script type="text/javascript" src="js/scripts.js">
 
@@ -227,7 +228,7 @@
               <?php
                     for ($x = 1; $x <= $numofcards1; $x++) {
 
-                      echo '  <div class="card" style="margin:0;">
+                      echo '  <div class="card btn-social" style="margin:0;">
                           <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
@@ -258,7 +259,7 @@
               <?php
                     for ($x = 1; $x <= $numofcards2; $x++) {
 
-                      echo '  <div class="card" style="margin:0;">
+                      echo '  <div class="card btn-social" style="margin:0;">
                           <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
@@ -290,7 +291,7 @@
               <?php
                     for ($x = 1; $x <= $numofcards3; $x++) {
 
-                      echo '  <div class="card" style="margin:0;">
+                      echo '  <div class="card btn-social" style="margin:0;">
                           <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>

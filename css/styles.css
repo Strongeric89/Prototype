@@ -1,0 +1,41 @@
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 250%;
+  }
+
+
+.list-group-item{
+  padding:5%;
+  margin-bottom:3%;
+  border-color: red;
+  color: red;
+
+}
+
+
+.btn-social {
+    width: 98%;
+    position: relative;
+    opacity: 1.0s;
+    transition: 0.5s ease;
+    cursor: pointer;
+
+}
+
+.btn-social:hover {
+    transform: scale(1.5, 1.5); /** default is 1, scale it to 1.5 */
+    opacity: 1;
+    margin:5%;
+    z-index: 10;
+
+
+
+
+}
+
+a:hover{
+  color:red;
+  text-decoration: none;
+  font-weight: bold;
+}
