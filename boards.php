@@ -35,7 +35,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Card View</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Card View ID <input type="text" name="bookId" id="passed" value=""readonly="readonly"/></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -44,13 +44,11 @@
 
             <form>
               <div class="form-group">
-                <label for="cardName">Card Title:  <input type="text" name="bookId" id="passed" value=""/>
-                  <script type="text/javascript">
 
-                    var id = document.getElementById('passed').value;
-                   document.write('<b>'+id+'</b>');
+                <label for="cardName">Card Title:
 
-                  </script>
+                  AJAX CALL WITH ID HERE
+
               </label>
 
 

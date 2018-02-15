@@ -1,4 +1,5 @@
 <?php
+include 'db/database.php';
 $admin = 1;
 $numofscrums = 11;
 
@@ -23,79 +24,6 @@ $numofscrums = 11;
 </head>
 <body>
 
-  <!-- Admin Settings Board Modal -->
-  <div class="modal fade" id="adminSettingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Admin Settings</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="boardName">Add new Admin Name:</label>
-              <input type="text" class="form-control"  placeholder="Enter name">
-              <small id="emailHelp" class="form-text text-muted">Enter New Admin name</small>
-            </div>
-
-            <div class="form-group">
-              <label for="boardName">Add new Admin Email:</label>
-              <input type="email" class="form-control"  placeholder="inumber@sap.com">
-              <small id="emailHelp" class="form-text text-muted">Enter Email</small>
-            </div>
-
-
-
-
-  <button type="submit" class="btn btn-primary">Create</button>
-</form>
-
-
-<div class="container">
-  <h2>Edit / Remove Boards </h2>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Board Title</th>
-        <th>Edit</th>
-        <th>Remove</th>
-        <th>Show / Hide</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-            for ($x = 1; $x <= $numofscrums; $x++) {
-                echo '  <tr>
-                    <td>'.$x.'</td>
-                    <td>Scrum '.$x.'</td>
-                    <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
-                  </td>
-                    <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
-                    </td>
-
-                    <td><input type="checkbox" checked data-toggle="toggle"></td>
-
-                  </tr>
-';
-            }
-
-       ?>
-
-    </tbody>
-  </table>
-</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
@@ -115,7 +43,13 @@ $numofscrums = 11;
   <div class="form-group">
     <label for="boardName">Board Title:</label>
     <input type="text" class="form-control"  placeholder="scrum #x">
-    <small id="emailHelp" class="form-text text-muted">Enter title of new Board</small>
+    <small  class="form-text text-muted">Enter title of new Board</small>
+  </div>
+
+  <div class="form-group">
+    <label for="boardName">Board Description:</label>
+    <input type="text" class="form-control"  placeholder="details about this scrum">
+    <small  class="form-text text-muted">Enter description about the scrum</small>
   </div>
 
 
