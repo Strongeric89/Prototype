@@ -1,6 +1,6 @@
 <?php
 $admin = 1;
-$numofscrums = 10;
+$numofscrums = 11;
 
  ?>
 <!DOCTYPE html>
@@ -172,14 +172,14 @@ $numofscrums = 10;
 <hr>
 
 
-<div class="container">
+
 
   <div class="row">
 
     <?php
 
     if($admin == 1){
-        echo '    <div class="col-sm btn-social"  data-toggle="modal" data-target="#createNewBoardModal">
+        echo '    <div class="col-sm"  data-toggle="modal" data-target="#createNewBoardModal">
               <div class="card box-shadow">
                  <div class="card-header">
                    <h4 class="my-0 font-weight-normal">New</h4>
@@ -205,7 +205,7 @@ $numofscrums = 10;
 
 
         for ($x = 1; $x <= $numofscrums; $x++) {
-            echo '    <a href="boards.php"><div class="col-sm btn-social">
+            echo '    <a href="boards.php?boardId='.$x.'"><div class=".col-lg-16 btn-social" style="margin:20%;">
                   <div class="card box-shadow">
                      <div class="card-header">
                        <h4 class="my-0 font-weight-normal" style="width:100%">Scrum Project '.$x.'</h4>
@@ -227,26 +227,13 @@ $numofscrums = 10;
                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
                            <div id="demo'.$x.'" class="collapse" style="margin:5%;">
 
-                           <br>
-
 
                             <tr>
 
                                <td style="padding:15%;">Display Scrum '.$x.'</td>
 
-                               <td><br><input type="checkbox" checked data-toggle="toggle"></td><br></tr>';
+                               <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
 
-                               // if($admin == 1){
-                               //   $ad .='
-                               //   <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
-                               // </td>
-                               //   <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
-                               //   </td>
-                               //   ';
-                               //
-                               //   $ad .= '</tr>';
-                               //
-                               // }
 
 
 
@@ -259,7 +246,7 @@ $numofscrums = 10;
 
                        echo ' </div>
                         </div>
-                        <br>
+
                      </div></a>';
 
 
@@ -268,7 +255,7 @@ $numofscrums = 10;
        ?>
 
   </div>
-</div>
+
 
 <hr>
 

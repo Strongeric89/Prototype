@@ -2,6 +2,7 @@
   $numofcards1 = 4;
     $numofcards2 = 3;
       $numofcards3 = 12;
+      $boardId = $_GET['boardId'];
 
 
  ?>
@@ -194,7 +195,7 @@
 
 
   <div class="jumbotron">
-    <h1 class="display-4">Board title</h1>
+    <h1 class="display-4">Board title <?php echo $boardId;?></h1>
     <p class="lead"></p>
     <hr class="my-4">
     <p>Board Description
@@ -241,7 +242,7 @@
               <?php
               for ($x = 1; $x <= $numofcards2; $x++) {
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="BoardId_glad' .$x.'"  >View '.$x.'</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$x.'"  >View '.$x.'</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
@@ -281,7 +282,7 @@
               <?php
                     for ($x = 1; $x <= $numofcards2; $x++) {
 
-                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="boardID_sad' .$x.'"  >View '.$x.'</button>';
+                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Sad' .$x.'"  >View '.$x.'</button>';
 
                       echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                           <div class="card-body">
@@ -323,7 +324,7 @@
               <?php
               for ($x = 1; $x <= $numofcards3; $x++) {
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="BoardId_mad' .$x.'"  >View '.$x.'</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Mad' .$x.'"  >View '.$x.'</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
