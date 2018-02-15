@@ -1,6 +1,6 @@
 <?php
-$admin = 0;
-$numofscrums = 5;
+$admin = 1;
+$numofscrums = 10;
 
  ?>
 <!DOCTYPE html>
@@ -63,7 +63,7 @@ $numofscrums = 5;
         <th>Board Title</th>
         <th>Edit</th>
         <th>Remove</th>
-        <th>Hide / Show</th>
+        <th>Show / Hide</th>
       </tr>
     </thead>
     <tbody>
@@ -137,11 +137,15 @@ $numofscrums = 5;
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
         <h5 class="my-0 mr-md-auto font-weight-normal">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
+
           <?php
             if($admin == 1){
               echo '  <a class="p-2 text-dark" href="AdminSettings.php">Admin Settings</a>';
             }
            ?>
+
+
+              <img src="images/profiler.png" class="img-circle"  width="20" height="20">
 
           <a class="p-2 text-dark" href="EditProfile.php">Edit Profile</a>
           <a class="p-2 text-dark" href="BoardSettings.php">Board Settings</a>
@@ -168,44 +172,43 @@ $numofscrums = 5;
 <hr>
 
 
-
-
-
-
 <div class="container">
+
   <div class="row">
 
+    <?php
 
+    if($admin == 1){
+        echo '    <div class="col-sm btn-social"  data-toggle="modal" data-target="#createNewBoardModal">
+              <div class="card box-shadow">
+                 <div class="card-header">
+                   <h4 class="my-0 font-weight-normal">New</h4>
+                 </div>
+                 <div class="card-body">
+                 <img src="images/add.png" width="10%" height="10%" style="margin:2%;">
+                   <!-- send with an id to display the correct board -->
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#createNewBoardModal">Create a new Board</button>
 
+                     </div>
+               </div>
+               <br>
+            </div>
+          ';
+    }
 
+     ?>
+
+  </div>
+  <div class="row">
 
       <?php
-        if($admin == 1){
-            echo '    <div class="col-sm btn-social">
-                  <div class="card box-shadow">
-                     <div class="card-header">
-                       <h4 class="my-0 font-weight-normal">New</h4>
-                     </div>
-                     <div class="card-body">
-                       <h1 class="card-title pricing-card-title"></h1>
-                       <ul class="list-unstyled mt-3 mb-4">
 
-                       </ul>
-                       <!-- send with an id to display the correct board -->
-                  <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#createNewBoardModal">Create a new Board</button>
-
-                         </div>
-                   </div>
-                   <br>
-                </div>
-              ';
-        }
 
         for ($x = 1; $x <= $numofscrums; $x++) {
             echo '    <a href="boards.php"><div class="col-sm btn-social">
                   <div class="card box-shadow">
                      <div class="card-header">
-                       <h4 class="my-0 font-weight-normal" style="width:100%">Scrum '.$x.'</h4>
+                       <h4 class="my-0 font-weight-normal" style="width:100%">Scrum Project '.$x.'</h4>
                      </div>
                      <div class="card-body">
                        <h1 class="card-title pricing-card-title"></h1>
@@ -219,9 +222,38 @@ $numofscrums = 5;
                        </ul>';
 
                        if($admin == 1){
-                         $ad = '<!-- send with an id to display the correct board -->
-                            <a href="BoardSettings.php"> <button type="button" class="btn btn-lg btn-block btn-outline-primary">Board Settings</button>
-                        </a>';
+
+                         $ad = '
+                           <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
+                           <div id="demo'.$x.'" class="collapse" style="margin:5%;">
+
+                           <br>
+
+
+                            <tr>
+
+                               <td style="padding:15%;">Display Scrum '.$x.'</td>
+
+                               <td><br><input type="checkbox" checked data-toggle="toggle"></td><br></tr>';
+
+                               // if($admin == 1){
+                               //   $ad .='
+                               //   <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
+                               // </td>
+                               //   <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
+                               //   </td>
+                               //   ';
+                               //
+                               //   $ad .= '</tr>';
+                               //
+                               // }
+
+
+
+
+                          $ad .= '</div> ';
+
+
                          echo $ad;
                        }
 

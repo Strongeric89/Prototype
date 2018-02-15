@@ -1,5 +1,5 @@
 <?php
-$admin = 0;
+$admin = 1;
 $numofscrums = 4;
 
  ?>
@@ -26,11 +26,12 @@ $numofscrums = 4;
   <div class="container">
 
 
+
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
         <h5 class="my-0 mr-md-auto font-weight-normal">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
-
+    <img src="images/profiler.png" class="img-circle"  width="20" height="20">
 
           <a class="p-2 text-dark" href="index.php">Back to Control</a>
 
@@ -58,7 +59,7 @@ $numofscrums = 4;
 <div class="container">
 
   <div class="container">
-    <h2>Hide / Show Boards </h2>
+    <h2>Show / Hide Boards </h2>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -67,7 +68,7 @@ $numofscrums = 4;
 
 
 
-          <th>Hide / Show</th>
+          <th>Show / Hide</th>
           <?php
             if($admin == 1){
               echo '

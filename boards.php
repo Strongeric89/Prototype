@@ -3,6 +3,7 @@
     $numofcards2 = 3;
       $numofcards3 = 12;
 
+
  ?>
 
 <!DOCTYPE html>
@@ -42,7 +43,14 @@
 
             <form>
               <div class="form-group">
-                <label for="cardName">Card Title:</label>
+                <label for="cardName">Card Title:  <input type="text" name="bookId" id="passed" value=""/>
+                  <script type="text/javascript">
+
+                    var id = document.getElementById('passed').value;
+                   document.write('<b>'+id+'</b>');
+
+                  </script>
+              </label>
 
 
               </div>
@@ -96,7 +104,7 @@
                    ?>
 
 
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="like();" >Like</button>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="like(this);">LIKE</button>
 
                       </div>
 
@@ -176,6 +184,7 @@
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal"> </h5>
     <nav class="my-2 my-md-0 mr-md-3">
+          <img src="images/profiler.png" class="img-circle"  width="20" height="20">
       <a class="p-2 text-dark"  href="index.php">Back to Dashboard</a>
       <a class="p-2 text-dark"  href="login.php">Sign out</a>
 
@@ -195,7 +204,11 @@
   </div>
 
 
+
+
     <div class="container">
+
+
          <div class="card box-shadow">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">What did you think....</h4>
@@ -220,24 +233,33 @@
       <div class="card-deck text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Glad </h4>
+            <h4 class="my-0 font-weight-normal">Glad  <img src="images/happy.png" width="30" height="30"> </h4>
           </div>
-          <div class="card-body">
+          <div class="card-body"ondrop="drop(event)" ondragover="allowDrop(event)">
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
               <?php
-                    for ($x = 1; $x <= $numofcards1; $x++) {
+              for ($x = 1; $x <= $numofcards2; $x++) {
 
-                      echo '  <div class="card btn-social" style="margin:0;">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" >View</button>
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="BoardId_glad' .$x.'"  >View '.$x.'</button>';
 
-                          </div>
+                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
 
-                        </div>    <br>';
-                      }
+                      '.$button.'
+
+
+
+
+                    </div>
+
+                  </div>    <br>';
+
+
+                }
 
                ?>
             </ul>
@@ -251,31 +273,41 @@
       <div class="card-deck text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Sad </h4>
+            <h4 class="my-0 font-weight-normal">Sad  <img src="images/sad.png" width="40" height="30"> </h4>
           </div>
-          <div class="card-body">
+          <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
               <?php
                     for ($x = 1; $x <= $numofcards2; $x++) {
 
-                      echo '  <div class="card btn-social" style="margin:0;">
+                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="boardID_sad' .$x.'"  >View '.$x.'</button>';
+
+                      echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                           <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" >View</button>
+                            <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
+
+                            '.$button.'
+
 
 
 
                           </div>
 
                         </div>    <br>';
+                        // <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-id="'.$x.'"  >View '.$x.'</button>
+                        // <a href="#my_modal" data-toggle="modal" data-book-id="echo $numofcards">Open Modal</a>
+
+
                       }
 
                ?>
             </ul>
           </div>
         </div>
+
     </div>
 
     </div>
@@ -283,26 +315,34 @@
       <div class="card-deck text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Mad </h4>
+            <h4 class="my-0 font-weight-normal">Mad <img src="images/angry.jpg" width="30" height="30"></h4>
           </div>
-          <div class="card-body">
+          <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
               <?php
-                    for ($x = 1; $x <= $numofcards3; $x++) {
+              for ($x = 1; $x <= $numofcards3; $x++) {
 
-                      echo '  <div class="card btn-social" style="margin:0;">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" >View</button>
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="BoardId_mad' .$x.'"  >View '.$x.'</button>';
+
+                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
+
+                      '.$button.'
 
 
 
-                          </div>
 
-                        </div>    <br>';
-                      }
+                    </div>
+
+                  </div>    <br>';
+
+
+                }
+
 
                ?>
             </ul>
@@ -316,6 +356,13 @@
 
   </div>
   <hr>
+
+
+
+
+
+
+
   <footer class="container-fluid text-center">
       <p class="mt-5 mb-3 text-muted">Saprello | SAP | Intern Project</p>
   </footer>
@@ -323,12 +370,15 @@
 </div>
 
 
-
-
-
-
-
 </div>
+
+<script type="text/javascript">
+$('#viewCardModal').on('show.bs.modal', function(e) {
+    var bookId = $(e.relatedTarget).data('book-id');
+    $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+});
+
+</script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -344,6 +394,8 @@
     src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script>
+
+
 
   </body>
 </html>

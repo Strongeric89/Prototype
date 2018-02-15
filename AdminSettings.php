@@ -30,7 +30,7 @@ $numofscrums = 4;
         <h5 class="my-0 mr-md-auto font-weight-normal">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
-
+              <img src="images/profiler.png" class="img-circle"  width="20" height="20">
 
           <a class="p-2 text-dark" href="index.php">Back to Control</a>
 
@@ -88,7 +88,7 @@ $numofscrums = 4;
 <th>Board Title</th>
 <th>Edit</th>
 <th>Remove</th>
-<th>Hide / Show</th>
+<th>Show / Hide</th>
 </tr>
 </thead>
 <tbody>
