@@ -1,6 +1,6 @@
 <?php
-$admin = 1;
-$numofscrums = 4;
+$admin = 0;
+$numofscrums = 3;
 
  ?>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ $numofscrums = 4;
 
 
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Saprello</h5>
+          <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
     <img src="images/profiler.png" class="img-circle"  width="20" height="20">

@@ -12,7 +12,7 @@ if (mysqli_connect_errno())
     echo "failed to connect";
     die();
 }else{
-  echo "db connected!";
+  //echo "db connected!";
 }
 
 

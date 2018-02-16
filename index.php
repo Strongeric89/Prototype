@@ -1,7 +1,7 @@
 <?php
 include 'db/database.php';
-$admin = 1;
-$numofscrums = 11;
+$admin = 0;
+$numofscrums = 3;
 
  ?>
 <!DOCTYPE html>
@@ -69,7 +69,7 @@ $numofscrums = 11;
 
 
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Saprello</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
           <?php
@@ -84,8 +84,12 @@ $numofscrums = 11;
           <a class="p-2 text-dark" href="EditProfile.php">Edit Profile</a>
           <a class="p-2 text-dark" href="BoardSettings.php">Board Settings</a>
 
+
+
         </nav>
         <a class="btn btn-outline-primary" href="login.php">Sign out</a>
+
+
       </div>
 
       <div class="jumbotron">
@@ -108,7 +112,7 @@ $numofscrums = 11;
 
 
 
-  <div class="row">
+  <div class="container" style="width:30%; height:50%; margin-bottom:5%;">
 
     <?php
 
@@ -119,9 +123,10 @@ $numofscrums = 11;
                    <h4 class="my-0 font-weight-normal">New</h4>
                  </div>
                  <div class="card-body">
-                 <img src="images/add.png" width="10%" height="10%" style="margin:2%;">
-                   <!-- send with an id to display the correct board -->
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#createNewBoardModal">Create a new Board</button>
+                 <img src="images/add.png" width="100%" height="50%" style="margin:2%;">
+
+                  <p> Only Admins can Create Boards - but all other users will see these and can add Cards to the Board
+              </p><button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#createNewBoardModal">Create a new Board</button>
 
                      </div>
                </div>

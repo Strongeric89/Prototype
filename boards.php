@@ -1,4 +1,5 @@
 <?php
+$boardId = 0;
   $numofcards1 = 4;
     $numofcards2 = 3;
       $numofcards3 = 12;
@@ -181,7 +182,7 @@
 
 
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal"> </h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
     <nav class="my-2 my-md-0 mr-md-3">
           <img src="images/profiler.png" class="img-circle"  width="20" height="20">
       <a class="p-2 text-dark"  href="index.php">Back to Dashboard</a>
@@ -240,7 +241,7 @@
               <?php
               for ($x = 1; $x <= $numofcards2; $x++) {
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$x.'"  >View '.$x.'</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$x.'"  >View</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
@@ -280,7 +281,7 @@
               <?php
                     for ($x = 1; $x <= $numofcards2; $x++) {
 
-                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Sad' .$x.'"  >View '.$x.'</button>';
+                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Sad' .$x.'"  >View</button>';
 
                       echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                           <div class="card-body">
@@ -322,7 +323,7 @@
               <?php
               for ($x = 1; $x <= $numofcards3; $x++) {
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Mad' .$x.'"  >View '.$x.'</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Mad' .$x.'"  >View</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
