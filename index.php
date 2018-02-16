@@ -63,13 +63,13 @@ $admin =  $_SESSION['is_admin'];
           <form class="" action="index.php" method="post">
             <div class="form-group">
               <label for="boardName">Board Title:</label>
-              <input type="text" class="form-control"  placeholder="scrum #x" name="boardTitle">
+              <input type="text" class="form-control"  placeholder="scrum #x" name="boardTitle" required>
               <small  class="form-text text-muted">Enter title of new Board</small>
             </div>
 
             <div class="form-group">
               <label for="boardName">Board Description:</label>
-              <input type="text" class="form-control"  placeholder="details about this scrum" name="boardDescription">
+              <input type="text" class="form-control"  placeholder="details about this scrum" name="boardDescription" required>
               <small  class="form-text text-muted">Enter description about the scrum</small>
             </div>
 

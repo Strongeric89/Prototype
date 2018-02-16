@@ -1,8 +1,8 @@
 <?php
-$boardId = 0;
-  $numofcards1 = 4;
-    $numofcards2 = 3;
-      $numofcards3 = 12;
+//$boardId = 0;
+  // $numofcards1 = 4;
+  //   $numofcards2 = 3;
+  //     $numofcards3 = 12;
       $boardId = $_GET['boardId'];
 
 
@@ -38,16 +38,13 @@ $boardId = 0;
       $boardTitle = '';
       $boardDescription = '';
 
+
+
       while ($row = $resultBoard->fetch_array()) {
           $boardTitle = $row['BOARD_TITLE'];
           $boardDescription = $row['BOARD_DESCRIPTION'];
 
       }
-
-
-      $getCard = "SELECT * FROM card where BOARD_ID =" .$boardId;
-      $resultCard = $mysqli->query($getCard); //use result on 3 different boards
-
 
 
 
@@ -131,6 +128,9 @@ $boardId = 0;
 
                   <?php
                   $d = '<div class="col-xs-3">';
+
+
+
                         for ($x = 0; $x <= $numofcards3; $x++) {
 
 
@@ -181,35 +181,33 @@ $boardId = 0;
           </div>
           <div class="modal-body">
 
-            <form>
+            <form class="" action="boards.php?boardId=<?php echo $boardId;?>" method="post">
+
               <div class="form-group">
                 <label for="cardName">Card Title:</label>
-                <input type="text" class="form-control"  placeholder="Enter card Title:">
+                <input type="text" class="form-control"  placeholder="Enter card Title:" name="title" required>
 
               </div>
 
               <div class="form-group">
                 <label for="cardDescription">Card Description:</label>
-                <textarea type="text" class="form-control"  placeholder="Enter Description:"></textarea>
+                <textarea type="text" class="form-control"  placeholder="Enter Description:" name="description" required></textarea>
               </div>
 
               <div class="form-group">
                 <label for="cardDescription">Card Catagory:</label>
                 <div class="form-group">
 
-                   <select class="form-control" id="cardCatagory">
-                     <option>Glad</option>
-                     <option>Sad</option>
-                     <option>Mad</option>
-
+                   <select class="form-control" id="cardCatagory" name="mgsOption" required>
+                     <option value="glad">Glad</option>
+                     <option value="sad">Sad</option>
+                     <option value="mad">Mad</option>
                    </select>
                  </div>
                   </div>
 
+    <button type="submit" class="btn btn-primary" name="submitNewCard">Create</button>
 
-
-
-    <button type="submit" class="btn btn-primary">Create</button>
   </form>
 
 
@@ -284,20 +282,38 @@ $boardId = 0;
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
               <?php
-              for ($x = 1; $x <= $numofcards2; $x++) {
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$x.'"  >View</button>';
+
+
+
+              //get numcards1
+              $numberofcards1Q = "SELECT * FROM card where BOARD_ID =" .$boardId. " AND card_status = 'glad'";
+              $result = $mysqli->query($numberofcards1Q);
+              $numofcards1 = mysqli_num_rows($result);
+
+
+              $resultCard1 = $mysqli->query($numberofcards1Q); //use result on 3 different boards
+
+
+
+              for ($x = 1; $x <= $numofcards1; $x++) {
+                $row = $resultCard1->fetch_array();
+                $cardId = $row['CARD_ID'];
+                $cardTitle = $row['TITLE'];
+                $cardDescription = $row['DESCRIPTION'];
+                  $cardDateAdded = $row['DATE_ADDED'];
+
+
+
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
+                      <h5 class="card-title">'.$cardTitle.'</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
 
                       '.$button.'
-
-
-
 
                     </div>
 
@@ -323,16 +339,33 @@ $boardId = 0;
           <div class="card-body" ondrop="drop(event)" ondragover="allowDrop(event)">
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
+
+
               <?php
-                    for ($x = 1; $x <= $numofcards2; $x++) {
+              //get numcards2
+              $numberofcards2Q = "SELECT * FROM card where BOARD_ID =" .$boardId. " AND card_status = 'sad'";
+              $result = $mysqli->query($numberofcards2Q);
+              $numofcards2 = mysqli_num_rows($result);
+              $resultCard2 = $mysqli->query($numberofcards2Q); //use result on 3 different boards
 
-                      $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Sad' .$x.'"  >View</button>';
 
-                      echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
+
+              for ($x = 1; $x <= $numofcards2; $x++) {
+                $row = $resultCard2->fetch_array();
+                $cardId = $row['CARD_ID'];
+                $cardTitle = $row['TITLE'];
+                $cardDescription = $row['DESCRIPTION'];
+                  $cardDateAdded = $row['DATE_ADDED'];
+
+
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
+
+                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                    <div class="card-body">
+                      <h5 class="card-title">'.$cardTitle.'</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+
 
                             '.$button.'
 
@@ -366,15 +399,30 @@ $boardId = 0;
             <ul class="list-unstyled mt-3 mb-4">
               <div class="list-group" >
               <?php
-              for ($x = 1; $x <= $numofcards3; $x++) {
+              //get numcards3
+              $numberofcards3Q = "SELECT * FROM card where BOARD_ID =" .$boardId. " AND card_status = 'mad'";
+              $result = $mysqli->query($numberofcards3Q);
+              $numofcards3 = mysqli_num_rows($result);
+              $resultCard3 = $mysqli->query($numberofcards3Q); //use result on 3 different boards
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Mad' .$x.'"  >View</button>';
+
+
+              for ($x = 1; $x <= $numofcards3; $x++) {
+                $row = $resultCard3->fetch_array();
+                $cardId = $row['CARD_ID'];
+                $cardTitle = $row['TITLE'];
+                $cardDescription = $row['DESCRIPTION'];
+                  $cardDateAdded = $row['DATE_ADDED'];
+
+
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
 
                 echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Card Description</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">Date Added</h6>
+                      <h5 class="card-title">'.$cardTitle.'</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+
 
                       '.$button.'
 
@@ -444,3 +492,55 @@ $('#viewCardModal').on('show.bs.modal', function(e) {
 
   </body>
 </html>
+
+
+<?php
+if(isset($_POST['submitNewCard'])){
+  $cTitle = sanitize($_POST['title']);
+  $cDescription = sanitize($_POST['description']);
+  $date = date("Y-m-d");
+  $status = sanitize($_POST['mgsOption']);
+
+
+
+  // insert with prepared statement
+  // prepared statement - insert
+  $query3 = "INSERT INTO card (DATE_ADDED,TITLE,DESCRIPTION,CARD_STATUS,BOARD_ID,USER_ID) VALUES (?,?,?,?,?,?); ";
+  $stmt = $mysqli->prepare($query3);
+  $stmt->bind_param("ssssss", $date,$cTitle,$cDescription,$status,$boardId,$user_id);
+  $stmt->execute();
+  print $stmt->error;
+  $stmt->close();
+  if ($stmt != 0) {
+      echo '
+         <script>alert("A new card has been created");</script>
+       ';
+       //AJAX Call HERE
+
+    echo "<script>window.open('boards.php?boardId=".$boardId."','_self')</script>";
+  } else {
+      echo '
+       <script>alert("Something went wrong!");</script>
+     ';
+  }
+
+}
+
+
+
+
+
+
+function sanitize($str)
+{
+    // clear white space
+    $str = trim($str);
+    // strip any slashes to preven sql injection
+    $str = stripslashes($str);
+    // prevent crosssite scripting
+    $str = htmlspecialchars($str);
+    return $str;
+}
+
+
+ ?>
