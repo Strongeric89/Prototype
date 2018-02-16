@@ -186,7 +186,7 @@ $boardId = 0;
     <nav class="my-2 my-md-0 mr-md-3">
           <img src="images/profiler.png" class="img-circle"  width="20" height="20">
       <a class="p-2 text-dark"  href="index.php">Back to Dashboard</a>
-      <a class="p-2 text-dark"  href="login.php">Sign out</a>
+      <a class="p-2 text-dark"  href="logout.php">Sign out</a>
 
     </nav>
 

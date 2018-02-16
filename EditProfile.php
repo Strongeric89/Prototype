@@ -35,7 +35,7 @@ $numofscrums = 11;
           <a class="p-2 text-dark" href="index.php">Back to Control</a>
 
         </nav>
-        <a class="btn btn-outline-primary" href="login.php">Sign out</a>
+        <a class="btn btn-outline-primary" href="logout.php">Sign out</a>
       </div>
 
       <div class="jumbotron">

@@ -3,7 +3,26 @@ include 'db/database.php';
 $admin = 0;
 $numofscrums = 3;
 
- ?>
+
+
+$ID = 0;
+session_start();
+if (! isset($_SESSION['user_id'])) {
+    $ID = -1;
+} // end if
+if ($ID == -1) {
+    echo "<script>alert('You do not have permission to view this. Please Log in. You have been logged out!')</script>";
+    session_destroy();
+    echo "<script>window.open('login.php','_self')</script>";
+}
+//locally used
+$name = $_SESSION['name'];
+$user_id = $_SESSION['user_id'];
+$profiler = $_SESSION['profile_img'];
+$admin =  $_SESSION['is_admin'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +89,10 @@ $numofscrums = 3;
 
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
         <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
+
         <nav class="my-2 my-md-0 mr-md-3">
+
+
 
           <?php
             if($admin == 1){
@@ -79,7 +101,8 @@ $numofscrums = 3;
            ?>
 
 
-              <img src="images/profiler.png" class="img-circle"  width="20" height="20">
+              <img src="<?php
+               echo $profiler;?>" class="img-circle"  width="20px" height="20px">
 
           <a class="p-2 text-dark" href="EditProfile.php">Edit Profile</a>
           <a class="p-2 text-dark" href="BoardSettings.php">Board Settings</a>
@@ -87,7 +110,7 @@ $numofscrums = 3;
 
 
         </nav>
-        <a class="btn btn-outline-primary" href="login.php">Sign out</a>
+        <a class="btn btn-outline-primary" href="logout.php">Sign out</a>
 
 
       </div>
@@ -95,6 +118,7 @@ $numofscrums = 3;
       <div class="jumbotron">
         <div class="container text-center">
           <h1>Saprello - Project Management by SAP</h1>
+            <h2>Welcome <?php echo $name; ?></h2>
           <?php
             if($admin == 1){
               echo '<h1>ADMIN VIEW</h1>';
