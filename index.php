@@ -161,7 +161,6 @@ $admin =  $_SESSION['is_admin'];
             </div>
           ';
     }
-
      ?>
 
   </div>
@@ -188,6 +187,12 @@ $admin =  $_SESSION['is_admin'];
                     $boardDetails = $row['BOARD_DESCRIPTION'];
                     $boardDateCreated = $row['DATE_ADDED'];
 
+                    //used in the boards.php
+                    $_SESSION['board_id'] = $row['BOARD_ID'];
+                    $_SESSION['board_'] = $row['BOARD_TITLE'];
+                    $boardDetails = $row['BOARD_DESCRIPTION'];
+                    $boardDateCreated = $row['DATE_ADDED'];
+
 
 
             echo '    <a href="boards.php?boardId='.$boardId.'"><div class=".col-lg-16 btn-social" style="margin:20%;">
@@ -199,18 +204,15 @@ $admin =  $_SESSION['is_admin'];
                        <h1 class="card-title pricing-card-title"></h1>
                        <ul class="list-unstyled mt-3 mb-4">
 
-                       <li> '.$boardDetails.'</li>
                        <li>'.$boardDateCreated.'</li>
-
-
 
                        </ul>';
 
-                       if($admin == 1){
+                       if($admin){
 
                          $ad = '
                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
-                           <div id="demo'.$boardId.'" class="collapse" style="margin:5%;">
+                           <div id="demo'.$x.'" class="collapse" style="margin:5%;">
 
 
                             <tr>
@@ -220,15 +222,11 @@ $admin =  $_SESSION['is_admin'];
                                <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
 
 
-
-
-
                           $ad .= '</div> ';
 
 
                          echo $ad;
                        }
-
                        echo ' </div>
                         </div>
 

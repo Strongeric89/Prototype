@@ -31,6 +31,26 @@ $boardId = 0;
       $admin =  $_SESSION['is_admin'];
 
 
+      //get board specific info
+      $getBoard = "SELECT * FROM board where BOARD_ID =" .$boardId;
+      $resultBoard = $mysqli->query($getBoard);
+
+      $boardTitle = '';
+      $boardDescription = '';
+
+      while ($row = $resultBoard->fetch_array()) {
+          $boardTitle = $row['BOARD_TITLE'];
+          $boardDescription = $row['BOARD_DESCRIPTION'];
+
+      }
+
+
+      $getCard = "SELECT * FROM card where BOARD_ID =" .$boardId;
+      $resultCard = $mysqli->query($getCard); //use result on 3 different boards
+
+
+
+
 
  ?>
 
@@ -210,7 +230,8 @@ $boardId = 0;
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
       <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-          <img src="images/profiler.png" class="img-circle"  width="20" height="20">
+      <img src="<?php
+       echo $profiler;?>" class="img-circle"  width="20px" height="20px">
       <a class="p-2 text-dark"  href="index.php">Back to Dashboard</a>
       <a class="p-2 text-dark"  href="logout.php">Sign out</a>
 
@@ -220,12 +241,10 @@ $boardId = 0;
 
 
   <div class="jumbotron">
-    <h1 class="display-4">Board title <?php echo $boardId;?></h1>
+    <h1 class="display-4">Board: #<?php echo $boardId;?> Title: <?php echo $boardTitle;?></h1>
     <p class="lead"></p>
     <hr class="my-4">
-    <p>Board Description
-      ipsum Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <p><?php echo $boardDescription;?>  </p>
 
   </div>
 
