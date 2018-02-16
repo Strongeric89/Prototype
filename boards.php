@@ -6,6 +6,32 @@ $boardId = 0;
       $boardId = $_GET['boardId'];
 
 
+      include 'db/database.php';
+      // $admin = 0;
+      // $numofscrums = 0;
+
+      if(isset($_SESSION['user_id'])){
+          echo "<script>window.open('index.php','_self')</script>";
+      }
+
+      $ID = 0;
+      session_start();
+      if (! isset($_SESSION['user_id'])) {
+          $ID = -1;
+      } // end if
+      if ($ID == -1) {
+          echo "<script>alert('You do not have permission to view this. Please Log in. You have been logged out!')</script>";
+          session_destroy();
+          echo "<script>window.open('login.php','_self')</script>";
+      }
+      //locally used
+      $name = $_SESSION['name'];
+      $user_id = $_SESSION['user_id'];
+      $profiler = $_SESSION['profile_img'];
+      $admin =  $_SESSION['is_admin'];
+
+
+
  ?>
 
 <!DOCTYPE html>

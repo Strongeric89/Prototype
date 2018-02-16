@@ -1,9 +1,11 @@
 <?php
 include 'db/database.php';
-$admin = 0;
-$numofscrums = 3;
+// $admin = 0;
+// $numofscrums = 0;
 
-
+if(isset($_SESSION['user_id'])){
+    echo "<script>window.open('index.php','_self')</script>";
+}
 
 $ID = 0;
 session_start();
@@ -58,23 +60,24 @@ $admin =  $_SESSION['is_admin'];
           </button>
         </div>
         <div class="modal-body">
-          <form>
-  <div class="form-group">
-    <label for="boardName">Board Title:</label>
-    <input type="text" class="form-control"  placeholder="scrum #x">
-    <small  class="form-text text-muted">Enter title of new Board</small>
-  </div>
+          <form class="" action="index.php" method="post">
+            <div class="form-group">
+              <label for="boardName">Board Title:</label>
+              <input type="text" class="form-control"  placeholder="scrum #x" name="boardTitle">
+              <small  class="form-text text-muted">Enter title of new Board</small>
+            </div>
 
-  <div class="form-group">
-    <label for="boardName">Board Description:</label>
-    <input type="text" class="form-control"  placeholder="details about this scrum">
-    <small  class="form-text text-muted">Enter description about the scrum</small>
-  </div>
+            <div class="form-group">
+              <label for="boardName">Board Description:</label>
+              <input type="text" class="form-control"  placeholder="details about this scrum" name="boardDescription">
+              <small  class="form-text text-muted">Enter description about the scrum</small>
+            </div>
 
 
 
-  <button type="submit" class="btn btn-primary">Create</button>
-</form>
+            <button type="submit" class="btn btn-primary" name="newBoardsubmit">Create</button>
+
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -166,19 +169,38 @@ $admin =  $_SESSION['is_admin'];
 
       <?php
 
+      //pull in all boards from DB
 
-        for ($x = 1; $x <= $numofscrums; $x++) {
-            echo '    <a href="boards.php?boardId='.$x.'"><div class=".col-lg-16 btn-social" style="margin:20%;">
+
+            //get number of boards
+            $numberofboardsQuery = "SELECT * FROM board";
+            $result = $mysqli->query($numberofboardsQuery);
+            $numResults = mysqli_num_rows($result);
+
+            for ($x = 1; $x <=$numResults; $x++) {
+
+
+
+            $row = $result->fetch_array();
+
+                    $boardId = $row['BOARD_ID'];
+                    $boardTitle = $row['BOARD_TITLE'];
+                    $boardDetails = $row['BOARD_DESCRIPTION'];
+                    $boardDateCreated = $row['DATE_ADDED'];
+
+
+
+            echo '    <a href="boards.php?boardId='.$boardId.'"><div class=".col-lg-16 btn-social" style="margin:20%;">
                   <div class="card box-shadow">
                      <div class="card-header">
-                       <h4 class="my-0 font-weight-normal" style="width:100%">Scrum Project '.$x.'</h4>
+                       <h4 class="my-0 font-weight-normal" style="width:100%">'.$boardTitle.'</h4>
                      </div>
                      <div class="card-body">
                        <h1 class="card-title pricing-card-title"></h1>
                        <ul class="list-unstyled mt-3 mb-4">
 
-                       <li> Board Details</li>
-                       <li>Date Created</li>
+                       <li> '.$boardDetails.'</li>
+                       <li>'.$boardDateCreated.'</li>
 
 
 
@@ -188,12 +210,12 @@ $admin =  $_SESSION['is_admin'];
 
                          $ad = '
                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
-                           <div id="demo'.$x.'" class="collapse" style="margin:5%;">
+                           <div id="demo'.$boardId.'" class="collapse" style="margin:5%;">
 
 
                             <tr>
 
-                               <td style="padding:15%;">Display Scrum '.$x.'</td>
+                               <td style="padding:15%;">'.$boardTitle.'</td>
 
                                <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
 
@@ -247,3 +269,54 @@ $admin =  $_SESSION['is_admin'];
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<?php
+//the following code is for admin board creation
+if(isset($_POST['newBoardsubmit'])){
+  $boardTitle = sanitize($_POST['boardTitle']);
+  // $date = date("Y-m-d");
+  $boardDescription = sanitize($_POST['boardDescription']);
+   $date = date("Y-m-d");
+
+
+  // insert with prepared statement
+  // prepared statement - insert
+  $query2 = "INSERT INTO board (BOARD_TITLE,BOARD_DESCRIPTION, DATE_ADDED) VALUES (?,?,?); ";
+  $stmt = $mysqli->prepare($query2);
+  $stmt->bind_param("sss", $boardTitle, $boardDescription,$date);
+  $stmt->execute();
+  print $stmt->error;
+  $stmt->close();
+  if ($stmt != 0) {
+      echo '
+         <script>alert("A new Board has been created");</script>
+       ';
+      echo "<script>window.open('index.php','_self')</script>";
+  } else {
+      echo '
+       <script>alert("Something went wrong!");</script>
+     ';
+  }
+
+}
+
+
+
+
+
+
+function sanitize($str)
+{
+    // clear white space
+    $str = trim($str);
+    // strip any slashes to preven sql injection
+    $str = stripslashes($str);
+    // prevent crosssite scripting
+    $str = htmlspecialchars($str);
+    return $str;
+}
+
+
+
+ ?>
