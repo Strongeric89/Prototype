@@ -96,6 +96,8 @@ $admin =  $_SESSION['is_admin'];
           <?php
             if($admin == 1){
               echo '  <a class="p-2 text-dark" href="AdminSettings.php">Admin Settings</a>';
+            }else{
+              echo '          <a class="p-2 text-dark" href="BoardSettings.php">Board Settings</a>';
             }
            ?>
 
@@ -104,7 +106,6 @@ $admin =  $_SESSION['is_admin'];
                echo $profiler;?>" class="img-circle"  width="20px" height="20px">
 
           <a class="p-2 text-dark" href="EditProfile.php">Edit Profile</a>
-          <a class="p-2 text-dark" href="BoardSettings.php">Board Settings</a>
 
 
 
@@ -153,14 +154,14 @@ $admin =  $_SESSION['is_admin'];
 
                      </div>
                </div>
-               <br>
+
             </div>
           ';
     }
      ?>
 
   </div>
-  <div class="row">
+  <div class="row" >
 
       <?php
 
@@ -182,6 +183,7 @@ $admin =  $_SESSION['is_admin'];
                     $boardTitle = $row['BOARD_TITLE'];
                     $boardDetails = $row['BOARD_DESCRIPTION'];
                     $boardDateCreated = $row['DATE_ADDED'];
+                    $boardonDisplay = $row['BOARD_DISPLAY'];
 
                     //used in the boards.php
                     $_SESSION['board_id'] = $row['BOARD_ID'];
@@ -189,39 +191,58 @@ $admin =  $_SESSION['is_admin'];
                     $boardDetails = $row['BOARD_DESCRIPTION'];
                     $boardDateCreated = $row['DATE_ADDED'];
 
+                    //BOARD_DISPLAY
+                    if($boardonDisplay != 1){
+                      continue;
+                    }else{
+                      echo '    <a href="boards.php?boardId='.$boardId.'">
+                      <div class=".col-lg-16 btn-social" style="margin:20%;">
+                            <div class="card box-shadow">
+                               <div class="card-header">
+                                 <h4 class="my-0 font-weight-normal" style="width:100%">'.$boardTitle.'</h4>
+                               </div>
+                               <div class="card-body">
+                                 <h1 class="card-title pricing-card-title"></h1>
+                                 <ul class="list-unstyled mt-3 mb-4">
+
+                                 <li>'.$boardDateCreated.'</li>
+                                 </ul>';
+
+                                 if($admin){
+
+                                   $ad = '
+                                     <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
+                                     <div id="demo'.$x.'" class="collapse" style="margin:5%;">
+                                      <tr>
+                                         <td style="padding:15%;">'.$boardTitle.'</td>
+                                         <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
+
+                        $ad .= '</div> ';
+
+                              echo $ad;
+                            }else{
+                              $ad = '
+                                <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">See Remaining Days </button>
+                                <div id="demo'.$x.'" class="collapse" style="margin:5%;">
+                                 <tr>
+                                    <td style="padding:15%;">'.$boardTitle.'</td>
+                                    <td><br>alternative settings here</td></tr>';
+                   $ad .= '</div> ';
+
+                         echo $ad;
+                            }
+                     echo ' </div>
+                          </div>
+
+                    </div></a>';
+
+
+                    }
 
 
 
 
-            echo '    <a href="boards.php?boardId='.$boardId.'">
-            <div class=".col-lg-16 btn-social" style="margin:20%;">
-                  <div class="card box-shadow">
-                     <div class="card-header">
-                       <h4 class="my-0 font-weight-normal" style="width:100%">'.$boardTitle.'</h4>
-                     </div>
-                     <div class="card-body">
-                       <h1 class="card-title pricing-card-title"></h1>
-                       <ul class="list-unstyled mt-3 mb-4">
 
-                       <li>'.$boardDateCreated.'</li>
-                       </ul>';
-
-                       //if($admin){
-
-                         $ad = '
-                           <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
-                           <div id="demo'.$x.'" class="collapse" style="margin:5%;">
-                            <tr>
-                               <td style="padding:15%;">'.$boardTitle.'</td>
-                               <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
-              $ad .= '</div> ';
-
-                    echo $ad;
-                    //   }
-           echo ' </div>
-                </div>
-
-          </div></a>';
 
 
   }

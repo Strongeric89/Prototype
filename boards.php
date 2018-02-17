@@ -224,7 +224,7 @@
       <img src="<?php
        echo $profiler;?>" class="img-circle"  width="20px" height="20px">
       <a class="p-2 text-dark"  href="index.php">Back to Dashboard</a>
-      <a class="p-2 text-dark"  href="logout.php">Sign out</a>
+      <a class="btn btn-outline-primary"  href="logout.php">Sign out</a>
 
     </nav>
 
@@ -524,14 +524,6 @@
 
 </div>
 
-<script type="text/javascript">
-// $('#viewCardModal').on('show.bs.modal', function(e) {
-//     var bookId = $(e.relatedTarget).data('book-id');
-//     $(e.currentTarget).find('input[name="bookId"]').val(bookId);
-//
-// });
-
-</script>
 
 <script type="text/javascript">
 
@@ -605,7 +597,7 @@ if(isset($_POST['submitNewCard'])){
       echo '
          <script>alert("A new card has been created");</script>
        ';
-       //AJAX Call HERE
+
 
     echo "<script>window.open('boards.php?boardId=".$boardId."','_self')</script>";
   } else {
