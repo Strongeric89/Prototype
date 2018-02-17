@@ -1,14 +1,10 @@
 <?php
-//$boardId = 0;
-  // $numofcards1 = 4;
-  //   $numofcards2 = 3;
-  //     $numofcards3 = 12;
+
       $boardId = $_GET['boardId'];
 
 
       include 'db/database.php';
-      // $admin = 0;
-      // $numofscrums = 0;
+
 
       if(isset($_SESSION['user_id'])){
           echo "<script>window.open('index.php','_self')</script>";
@@ -302,22 +298,49 @@
                 $cardTitle = $row['TITLE'];
                 $cardDescription = $row['DESCRIPTION'];
                   $cardDateAdded = $row['DATE_ADDED'];
+                  $cardCreatedBy = $row['USER_ID'];
+
+                  //get users name
+                  $usersName = "SELECT NAME FROM user where USER_ID ='" .$cardCreatedBy. "';";
+                  $userNameResult = $mysqli->query($usersName);
+                    $r = $userNameResult->fetch_array();
+                    $nameforCard = $r['NAME'];
+
+
+
 
 
 
                 $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
 
-                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
-                    <div class="card-body">
-                      <h5 class="card-title">'.$cardTitle.'</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                if($nameforCard == $name){
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body" style="background-color:#dce5f4;">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
 
-                      '.$button.'
+                        '.$button.'
 
-                    </div>
+                      </div>
 
-                  </div>    <br>';
+                    </div>    <br>';
+                }else{
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
+
+                        '.$button.'
+
+                      </div>
+
+                    </div>    <br>';
+                }
+
 
 
                 }
@@ -356,28 +379,48 @@
                 $cardTitle = $row['TITLE'];
                 $cardDescription = $row['DESCRIPTION'];
                   $cardDateAdded = $row['DATE_ADDED'];
+                  $cardCreatedBy = $row['USER_ID'];
+
+                  //get users name
+                  $usersName = "SELECT NAME FROM user where USER_ID ='" .$cardCreatedBy. "';";
+                  $userNameResult = $mysqli->query($usersName);
+                    $r = $userNameResult->fetch_array();
+                    $nameforCard = $r['NAME'];
+
+
+
+
 
 
                 $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
 
-                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
-                    <div class="card-body">
-                      <h5 class="card-title">'.$cardTitle.'</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                if($nameforCard == $name){
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body" style="background-color:#dce5f4;">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
 
+                        '.$button.'
 
-                            '.$button.'
+                      </div>
 
+                    </div>    <br>';
+                }else{
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
 
+                        '.$button.'
 
+                      </div>
 
-                          </div>
-
-                        </div>    <br>';
-                        // <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-id="'.$x.'"  >View '.$x.'</button>
-                        // <a href="#my_modal" data-toggle="modal" data-book-id="echo $numofcards">Open Modal</a>
-
+                    </div>    <br>';
+                }
 
                       }
 
@@ -407,31 +450,56 @@
 
 
 
+
+
               for ($x = 1; $x <= $numofcards3; $x++) {
                 $row = $resultCard3->fetch_array();
                 $cardId = $row['CARD_ID'];
                 $cardTitle = $row['TITLE'];
                 $cardDescription = $row['DESCRIPTION'];
                   $cardDateAdded = $row['DATE_ADDED'];
+                  $cardCreatedBy = $row['USER_ID'];
+
+                  //get users name
+                  $usersName = "SELECT NAME FROM user where USER_ID ='" .$cardCreatedBy. "';";
+                  $userNameResult = $mysqli->query($usersName);
+                    $r = $userNameResult->fetch_array();
+                    $nameforCard = $r['NAME'];
+
+
+
+
 
 
                 $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
 
-                echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
-                    <div class="card-body">
-                      <h5 class="card-title">'.$cardTitle.'</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
-                      <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                if($nameforCard == $name){
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body" style="background-color:#dce5f4;">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
 
+                        '.$button.'
 
-                      '.$button.'
+                      </div>
 
+                    </div>    <br>';
+                }else{
+                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                      <div class="card-body">
+                        <h5 class="card-title">'.$cardTitle.'</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$cardDateAdded.'</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">'.$nameforCard.'</h6>
 
+                        '.$button.'
 
+                      </div>
 
-                    </div>
-
-                  </div>    <br>';
+                    </div>    <br>';
+                }
 
 
                 }
@@ -525,10 +593,6 @@ if(isset($_POST['submitNewCard'])){
   }
 
 }
-
-
-
-
 
 
 function sanitize($str)

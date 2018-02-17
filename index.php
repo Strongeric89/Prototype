@@ -195,7 +195,10 @@ $admin =  $_SESSION['is_admin'];
 
 
 
-            echo '    <a href="boards.php?boardId='.$boardId.'"><div class=".col-lg-16 btn-social" style="margin:20%;">
+
+
+            echo '    <a href="boards.php?boardId='.$boardId.'">
+            <div class=".col-lg-16 btn-social" style="margin:20%;">
                   <div class="card box-shadow">
                      <div class="card-header">
                        <h4 class="my-0 font-weight-normal" style="width:100%">'.$boardTitle.'</h4>
@@ -205,32 +208,24 @@ $admin =  $_SESSION['is_admin'];
                        <ul class="list-unstyled mt-3 mb-4">
 
                        <li>'.$boardDateCreated.'</li>
-
                        </ul>';
 
-                       if($admin){
+                       //if($admin){
 
                          $ad = '
                            <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">Board Settings</button>
                            <div id="demo'.$x.'" class="collapse" style="margin:5%;">
-
-
                             <tr>
-
                                <td style="padding:15%;">'.$boardTitle.'</td>
-
                                <td><br><input type="checkbox" checked data-toggle="toggle"></td></tr>';
+              $ad .= '</div> ';
 
+                    echo $ad;
+                    //   }
+           echo ' </div>
+                </div>
 
-                          $ad .= '</div> ';
-
-
-                         echo $ad;
-                       }
-                       echo ' </div>
-                        </div>
-
-                     </div></a>';
+          </div></a>';
 
 
   }
