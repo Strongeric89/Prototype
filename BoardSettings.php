@@ -1,8 +1,28 @@
 <?php
-$admin = 0;
-$numofscrums = 3;
+include 'db/database.php';
 
- ?>
+
+if(isset($_SESSION['user_id'])){
+    echo "<script>window.open('index.php','_self')</script>";
+}
+
+$ID = 0;
+session_start();
+if (! isset($_SESSION['user_id'])) {
+    $ID = -1;
+} // end if
+if ($ID == -1) {
+    echo "<script>alert('You do not have permission to view this. Please Log in. You have been logged out!')</script>";
+    session_destroy();
+    echo "<script>window.open('login.php','_self')</script>";
+}
+//locally used
+$name = $_SESSION['name'];
+$user_id = $_SESSION['user_id'];
+$profiler = $_SESSION['profile_img'];
+$admin =  $_SESSION['is_admin'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +51,8 @@ $numofscrums = 3;
           <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
-    <img src="images/profiler.png" class="img-circle"  width="20" height="20">
+          <img src="<?php
+           echo $profiler;?>" class="img-circle"  width="20px" height="20px">
 
           <a class="p-2 text-dark" href="index.php">Back to Control</a>
 
@@ -42,6 +63,7 @@ $numofscrums = 3;
       <div class="jumbotron">
         <div class="container text-center">
           <h1>Saprello - Project Management by SAP</h1>
+            <h2>Welcome <?php echo $name; ?></h2>
           <?php
             if($admin == 1){
               echo '<h1>ADMIN VIEW</h1>';
@@ -77,12 +99,42 @@ $numofscrums = 3;
               ';
 
             }
+
+
+
            ?>
         </tr>
       </thead>
       <tbody>
         <?php
-              for ($x = 1; $x <= $numofscrums; $x++) {
+
+        //pull in all boards from DB
+
+
+              //get number of boards
+              $numberofboardsQuery = "SELECT * FROM board";
+              $result = $mysqli->query($numberofboardsQuery);
+              $numResults = mysqli_num_rows($result);
+
+              for ($x = 1; $x <=$numResults; $x++) {
+
+
+
+              $row = $result->fetch_array();
+
+                      $boardId = $row['BOARD_ID'];
+                      $boardTitle = $row['BOARD_TITLE'];
+                      $boardDetails = $row['BOARD_DESCRIPTION'];
+                      $boardDateCreated = $row['DATE_ADDED'];
+                      $boardonDisplay = $row['BOARD_DISPLAY'];
+
+                      //used in the boards.php
+                      $_SESSION['board_id'] = $row['BOARD_ID'];
+                      $_SESSION['board_'] = $row['BOARD_TITLE'];
+                      $boardDetails = $row['BOARD_DESCRIPTION'];
+                      $boardDateCreated = $row['DATE_ADDED'];
+
+              // for ($x = 1; $x <= $numofscrums; $x++) {
                   echo '  <tr>
                       <td>'.$x.'</td>
                       <td>Scrum '.$x.'</td>

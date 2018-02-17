@@ -1,8 +1,28 @@
 <?php
-$admin = 0;
-$numofscrums = 11;
+include 'db/database.php';
 
- ?>
+
+if(isset($_SESSION['user_id'])){
+    echo "<script>window.open('index.php','_self')</script>";
+}
+
+$ID = 0;
+session_start();
+if (! isset($_SESSION['user_id'])) {
+    $ID = -1;
+} // end if
+if ($ID == -1) {
+    echo "<script>alert('You do not have permission to view this. Please Log in. You have been logged out!')</script>";
+    session_destroy();
+    echo "<script>window.open('login.php','_self')</script>";
+}
+//locally used
+$name = $_SESSION['name'];
+$user_id = $_SESSION['user_id'];
+$profiler = $_SESSION['profile_img'];
+$admin =  $_SESSION['is_admin'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +50,9 @@ $numofscrums = 11;
         <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
 
-              <img src="images/profiler.png" class="img-circle"  width="20" height="20">
+          <img src="<?php
+           echo $profiler;?>" class="img-circle"  width="20px" height="20px">
+
 
           <a class="p-2 text-dark" href="index.php">Back to Control</a>
 
@@ -64,21 +86,23 @@ $numofscrums = 11;
 
   <div class="col-lg-4" align="center">
 
-            <img class="rounded-circle" src="images/profiler.png" alt="Generic placeholder image" width="140" height="140">
-            <h2>Name</h2>
-            <h2>Details...</h2>
+            <img class="rounded-circle" src="<?php
+             echo $profiler;?>" alt="Generic placeholder image" width="140" height="140">
+            <h2><?php echo $name; ?></h2>
+            <h2><?php echo $user_id; ?></h2>
           </div>
           <hr>
-  <form>
+  <form class="" action="EditProfile.php" method="post">
+
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass1">
 
       </div>
       <div class="form-group col-md-6">
         <label for="inputPassword4">Confirm Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass2">
       </div>
     </div>
 
@@ -100,7 +124,52 @@ $numofscrums = 11;
 
 
 
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+
+    <?php
+
+      if(isset($_POST['submit'])){
+
+              $pass1 = sanitize($_POST['pass1']);
+              $pass2 = sanitize($_POST['pass2']);
+
+              if ($pass1 == $pass2) {
+
+                  $temp = $pass1;
+
+                  $pass1 = md5($pass1);
+                  $update9 = "UPDATE `user` SET `USERPASSWORD`= '$pass1' WHERE USER_ID ='$user_id' ";
+                  $result9 = $mysqli->query($update9);
+
+
+
+               if ($result9 == 0) {
+                      $msg = "error when reseting password: ";
+                      echo "<script>alert('$msg');</script>";
+                      echo "<script>window.open('index.php','_self')</script>";
+                  } else {
+                      $msg = "password reset to : " . $temp;
+                      echo "<script>alert('$msg');</script>";
+                      echo "<script>window.open('index.php','_self')</script>";
+                  }
+              } else {
+                  echo "<script>alert('the passwords must be the same');</script>";
+              }
+  }
+
+      function sanitize($str)
+      {
+          // clear white space
+          $str = trim($str);
+          // strip any slashes to preven sql injection
+          $str = stripslashes($str);
+          // prevent crosssite scripting
+          $str = htmlspecialchars($str);
+          return $str;
+      }
+
+
+     ?>
   </form>
 </div>
 
