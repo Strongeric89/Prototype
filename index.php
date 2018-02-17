@@ -1,7 +1,6 @@
 <?php
 include 'db/database.php';
-// $admin = 0;
-// $numofscrums = 0;
+
 
 if(isset($_SESSION['user_id'])){
     echo "<script>window.open('index.php','_self')</script>";
@@ -44,9 +43,6 @@ $admin =  $_SESSION['is_admin'];
 
 </head>
 <body>
-
-
-
 
 
   <!-- Create new Board Modal -->
@@ -293,11 +289,6 @@ if(isset($_POST['newBoardsubmit'])){
   }
 
 }
-
-
-
-
-
 
 function sanitize($str)
 {

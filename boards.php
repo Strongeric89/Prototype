@@ -1,9 +1,9 @@
 <?php
-
+  include 'db/database.php';
       $boardId = $_GET['boardId'];
 
 
-      include 'db/database.php';
+      $numofcards3 = 4;
 
 
       if(isset($_SESSION['user_id'])){
@@ -42,9 +42,6 @@
 
       }
 
-
-
-
  ?>
 
 <!DOCTYPE html>
@@ -82,13 +79,13 @@
           </div>
           <div class="modal-body">
 
-            <form>
+
+
+            <form name="form1" action="boards.php?boardId=<?php echo $boardId;?>" method="get" >
               <div class="form-group">
 
                 <label for="cardName">Card Title:
-
-                  AJAX CALL WITH ID HERE
-
+                  <input type="text" name="cardTitle"  value="" readonly="readonly"/>
               </label>
 
 
@@ -96,22 +93,22 @@
               <hr>
 
               <div class="form-group">
-                <label for="cardDescription">Card Description:</label>
+                <label for="cardDescription">Card Description:<input type="text" name="cardDescription"  value="" readonly="readonly"/></label>
                 <hr>
                   </div>
 
                   <div class="form-group">
-                    <label for="cardDescription">Date Created:</label>
+                    <label for="cardDescription">Date Created:<input type="text" name="cardCreated"  value="" readonly="readonly"/></label>
                     <hr>
                       </div>
 
                       <div class="form-group">
-                        <label for="cardDescription">Card Created by:</label>
+                        <label for="cardDescription">Card Created by: <input type="text" name="cardBy"  value="" readonly="readonly"/></label>
                         <hr>
                           </div>
 
               <div class="form-group">
-                <label for="cardDescription">Card Catagory:</label>
+                <label for="cardDescription">Card Catagory:<input type="text" name="cardCat"  value="" readonly="readonly"/></label>
 
                   </div>
                   <hr>
@@ -311,7 +308,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -392,7 +389,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -471,7 +468,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . 'Glad' .$cardId.'"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'" id="modalPass"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -518,12 +515,6 @@
   </div>
   <hr>
 
-
-
-
-
-
-
   <footer class="container-fluid text-center">
       <p class="mt-5 mb-3 text-muted">Saprello | SAP | Intern Project</p>
   </footer>
@@ -534,12 +525,43 @@
 </div>
 
 <script type="text/javascript">
-$('#viewCardModal').on('show.bs.modal', function(e) {
-    var bookId = $(e.relatedTarget).data('book-id');
-    $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+// $('#viewCardModal').on('show.bs.modal', function(e) {
+//     var bookId = $(e.relatedTarget).data('book-id');
+//     $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+//
+// });
+
+</script>
+
+<script type="text/javascript">
+
+$('#viewCardModal').on('show.bs.modal', function(e){
+  //get data from button
+  var bookId = $(e.relatedTarget).data('book-id');
+  var comps = bookId.split(" ");
+  var q = "select * from card where board_id = "+comps[0]+" AND card_id = "+comps[1]+"";
+
+
+
+  //post q to getCardDetails
+  $.post('getCardDetails.php', {query: q}, function(data){
+    //call pass the data to modal here
+    var content = data.split("#");
+    //alert(content[5]);
+    $(e.currentTarget).find('input[name="bookId"]').val(content[0]);
+    $(e.currentTarget).find('input[name="cardTitle"]').val(content[1]);
+        $(e.currentTarget).find('input[name="cardDescription"]').val(content[2]);
+            $(e.currentTarget).find('input[name="cardCreated"]').val(content[3]);
+                $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
+                    $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
+  });
+
+
 });
 
 </script>
+
+
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -556,7 +578,7 @@ $('#viewCardModal').on('show.bs.modal', function(e) {
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   </body>
 </html>
