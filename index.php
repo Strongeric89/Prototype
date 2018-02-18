@@ -191,6 +191,8 @@ $admin =  $_SESSION['is_admin'];
                     $boardDetails = $row['BOARD_DESCRIPTION'];
                     $boardDateCreated = $row['DATE_ADDED'];
 
+
+
                     //BOARD_DISPLAY
                     if($boardonDisplay != 1){
                       continue;
@@ -221,12 +223,28 @@ $admin =  $_SESSION['is_admin'];
 
                               echo $ad;
                             }else{
+
+
+                              $timestamp = strtotime($boardDateCreated);
+                              $d =  date("d", $timestamp);
+
+                              $now = date("Y-m-d");
+                              $timestampNow = strtotime($now);
+                              $n =  date("d", $timestampNow);
+
+                              $d = $n - $d;
+                              $d1 = 14 - $d;
+
+
+
                               $ad = '
                                 <button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="collapse" data-target="#demo'.$x.'">See Remaining Days </button>
                                 <div id="demo'.$x.'" class="collapse" style="margin:5%;">
                                  <tr>
-                                    <td style="padding:15%;">'.$boardTitle.'</td>
-                                    <td><br>alternative settings here</td></tr>';
+
+                                  <br>  <td>
+                                       '.$d1.' Days
+                                    </td></tr>';
                    $ad .= '</div> ';
 
                          echo $ad;
