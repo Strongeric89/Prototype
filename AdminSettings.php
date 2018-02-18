@@ -252,12 +252,37 @@ function sanitize($str)
             <td>'.$AdminId.'</td>
             <td>'.$adminName.'</td>
 
+              <form class="" action="AdminSettings.php" method="post">
 
-            <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button></td>
+              <td><input name="admin" value='.$AdminId.'></td>
 
 
+            <td><button type="button" class="btn btn-lg btn-block btn-outline-primary" name="removeAdmin">Remove</button></td>
+
+            </form>
           </tr>
 ';
+    }
+
+    if(isset($_POST['removeAdmin'])){
+
+      $admin = $_POST['admin'];
+
+      $updateAdmin = "UPDATE `user` SET `IS_ADMIN`= '0' WHERE USER_ID = '$admin'";
+      $result = $mysqli->query($updateAdmin);
+
+      if ($result == 0) {
+             $msg = "error when removing admin ";
+             echo "<script>alert('$msg');</script>";
+             echo "<script>window.open('index.php','_self')</script>";
+         } else {
+             $msg = "User : " . $admin . " is no longer an Admin";
+             echo "<script>alert('$msg');</script>";
+             echo "<script>window.open('.','_self')</script>";
+         }
+
+
+
     }
 
 ?>
