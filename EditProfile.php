@@ -112,22 +112,24 @@ $admin =  $_SESSION['is_admin'];
     </div>
     </div>
 
-
-
-
-
-
-
-
-
+    <hr>
 
       <form class="" action="EditProfile.php" enctype="multipart/form-data" method="post">
-        <div class="form-row" align="center">
-        <label for="profile picture">Profile Image: </label>
-            <br><input id="formElements" name="c_image" type="file" required />
-              <button type="submit" class="btn btn-primary" name="submitImage">Update Profile Image</button>
-          </div>
 
+        <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputPassword4">Update Profile Picture</label>
+            </div>
+
+          <div class="form-group col-md-4">
+
+            <input id="formElements" name="c_image" type="file" required />
+
+          </div>
+          <div class="form-group col-md-2">
+            <button type="submit" class="btn btn-primary" name="submitImage">Update Profile Image</button>
+
+            </div>
 
       </div>
 
