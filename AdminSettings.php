@@ -257,7 +257,7 @@ function sanitize($str)
               <td><input name="admin" value='.$AdminId.'></td>
 
 
-            <td><button type="button" class="btn btn-lg btn-block btn-outline-primary" name="removeAdmin">Remove</button></td>
+              <td><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="removeAdmin">Remove</button></td>
 
             </form>
           </tr>
@@ -278,11 +278,8 @@ function sanitize($str)
          } else {
              $msg = "User : " . $admin . " is no longer an Admin";
              echo "<script>alert('$msg');</script>";
-             echo "<script>window.open('.','_self')</script>";
+             echo "<script>window.open('index.php','_self')</script>";
          }
-
-
-
     }
 
 ?>
