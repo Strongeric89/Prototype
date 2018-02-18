@@ -116,23 +116,15 @@
                   <div class="form-group">
 
 
-
-
-
-
-
-
                   <?php
-                  //add profile img above
 
-                  //display like count
+
+
                   $d = '<div class="col-xs-3">';
                   //get number of likes for that card
-                  $numberofLikesQuery = 'SELECT USER_ID FROM votes WHERE CARD_ID = 2'; //MUST BE CHANged
+                  $numberofLikesQuery = 'SELECT USER_ID, VOTE_ID FROM votes WHERE CARD_ID = 1'; //MUST BE CHANged - need to pass over CARD_ID
                   $result = $mysqli->query($numberofLikesQuery);
                   $numResults = mysqli_num_rows($result);
-
-
 
                         for ($x = 1; $x <= $numResults; $x++) {
 
@@ -154,18 +146,15 @@
                                        ';
                                   }
 
-
-
-
-
-
                         }
                         $d .= ' </div>';
 
                         echo $d;
 
                    ?>
-                       <label for="cardLikeCount">Likes: <?php echo  $numResults; ?></label>
+                       <label for="cardLikeCount">Likes: <?php
+                             //display like count
+                       echo  $numResults; ?></label>
 
                    <input type="text" name="likeBtnVal" id="likeBtnVal"  value="" readonly="readonly" hidden="hidden"/>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary" id="likeBtn" name="likeBtn"  value="">LIKE</button>
@@ -178,9 +167,11 @@
 
                         var values = $('#likeBtnVal').val();
                         var v = values.split('#');
-                        alert(v);
-                        var q = "INSERT INTO `votes` (`AGREE_COUNT`, `CARD_ID`, `USER_ID`) VALUES ( 1, "+v[0]+", '"+v[2]+"');";
+                        //alert(v);
 
+
+                        var q = "INSERT INTO `votes` (`AGREE_COUNT`, `CARD_ID`, `USER_ID`, `BOARD_ID`) VALUES ( 1, "+v[0]+", '"+v[1]+"', "+v[2]+");";
+                        alert(q);
                         //create an entry into the votes table
                         $.post('voteOnCard.php', {query: q}, function(data){
                           if(data == 1){
@@ -188,12 +179,7 @@
 
                           }
 
-
-
                         });
-
-
-
 
 
                       });
@@ -599,7 +585,7 @@ $('#viewCardModal').on('show.bs.modal', function(e){
             $(e.currentTarget).find('input[name="cardCreated"]').val(content[3]);
                 $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
                     $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
-                      $(e.currentTarget).find('input[name="likeBtnVal"]').val(content[0] + '#' + content[4] + '#' + comps[2]);
+                      $(e.currentTarget).find('input[name="likeBtnVal"]').val(content[0] + '#' + comps[2] + '#' + comps[0]);
   });
 
 
