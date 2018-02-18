@@ -223,9 +223,8 @@ function sanitize($str)
 <tr>
 <th>#</th>
 <th>Name</th>
-<th>Edit</th>
 <th>Remove</th>
-<th>Show / Hide</th>
+
 </tr>
 </thead>
 <tbody>
@@ -252,12 +251,10 @@ function sanitize($str)
         echo '  <tr>
             <td>'.$AdminId.'</td>
             <td>'.$adminName.'</td>
-            <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
-          </td>
-            <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
-            </td>
 
-            <td><input type="checkbox" checked data-toggle="toggle"></td>
+
+            <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button></td>
+
 
           </tr>
 ';
