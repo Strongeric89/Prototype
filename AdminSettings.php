@@ -106,6 +106,8 @@ $admin =  $_SESSION['is_admin'];
 
 <button type="submit" class="btn btn-primary" name="submit">Create</button>
 </form>
+
+
 <?php
 if(isset($_POST['submit'])){
 
@@ -212,6 +214,62 @@ function sanitize($str)
 
 
 <hr>
+
+
+<div class="container">
+<h2>Add / Remove Admins </h2>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Edit</th>
+<th>Remove</th>
+<th>Show / Hide</th>
+</tr>
+</thead>
+<tbody>
+<?php
+//pull in all boards from DB
+
+
+      //get number of boards
+      $numberofAdminsQuery = "SELECT * FROM user where IS_ADMIN = 1;";
+      $result = $mysqli->query($numberofAdminsQuery);
+      $numResults = mysqli_num_rows($result);
+
+      for ($x = 1; $x <=$numResults; $x++) {
+
+
+
+      $row = $result->fetch_array();
+
+              $AdminId = $row['USER_ID'];
+              $adminName = $row['NAME'];
+
+
+
+        echo '  <tr>
+            <td>'.$AdminId.'</td>
+            <td>'.$adminName.'</td>
+            <td>    <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Edit</button>
+          </td>
+            <td>  <button type="button" class="btn btn-lg btn-block btn-outline-primary" >Remove</button>
+            </td>
+
+            <td><input type="checkbox" checked data-toggle="toggle"></td>
+
+          </tr>
+';
+    }
+
+?>
+
+</tbody>
+</table>
+</div>
+
+
 
 
     <footer class="container-fluid text-center">
