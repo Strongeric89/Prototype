@@ -22,6 +22,8 @@ $user_id = $_SESSION['user_id'];
 $profiler = $_SESSION['profile_img'];
 $admin =  $_SESSION['is_admin'];
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +51,7 @@ $admin =  $_SESSION['is_admin'];
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
         <h5 class="my-0 mr-md-auto font-weight-normal"><img src="images/logo.png">Saprello</h5>
         <nav class="my-2 my-md-0 mr-md-3">
+
 
           <img src="<?php
            echo $profiler;?>" class="img-circle"  width="20px" height="20px">
@@ -111,6 +114,7 @@ $admin =  $_SESSION['is_admin'];
       <button type="submit" class="btn btn-primary" name="submit">Update Password</button>
     </div>
     </div>
+  </form>
 
     <hr>
 
@@ -138,6 +142,57 @@ $admin =  $_SESSION['is_admin'];
 
 
     <?php
+      //profile picture form
+      if(isset($_POST['submitImage'])){
+      $c_image = $_FILES['c_image']['name'];
+      $c_image_tmp = $_FILES['c_image']['tmp_name'];
+      move_uploaded_file($c_image_tmp, "userprofiles/" . "$c_image");
+      $pathtoFile = "userprofiles/" . $c_image;
+      $imageFileType= pathinfo($pathtoFile,PATHINFO_EXTENSION);
+
+      // Allow certain file formats
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+      && $imageFileType != "gif" ) {
+          echo "<script>
+                  alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');
+                  </script>";
+                  die();
+      }
+
+      // Check if file already exists
+     // if (file_exists($pathtoFile)) {
+     //     echo "Sorry, file already exists.";
+     //     echo "<script>
+     //             alert('Sorry, please rename your image file. thank you');
+     //             </script>";
+     //             die();
+     //            }
+
+
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+
+        }
+
+        //update db with new filename
+        $updatePic = "UPDATE `user` SET `PROFILE_IMG`= '$pathtoFile' WHERE USER_ID ='$user_id' ";
+        $resultPic = $mysqli->query($updatePic);
+        if ($resultPic == 0) {
+               $msg = "error when changing image: ";
+               echo "<script>alert('$msg');</script>";
+               echo "<script>window.open('index.php','_self')</script>";
+           } else {
+
+               echo "<script>alert('Profile Picture Updated' ".$c_image.");</script>";
+               echo "<script>window.open('index.php','_self')</script>";
+           }
+
+
+
+
+
+      }
+
 
       if(isset($_POST['submit'])){
 
