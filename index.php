@@ -1,4 +1,7 @@
 <?php
+if (! ini_get('date.timezone')) {
+    date_default_timezone_set('GMT');
+}
 include 'db/database.php';
 
 
@@ -65,7 +68,7 @@ $admin =  $_SESSION['is_admin'];
 
             <div class="form-group">
               <label for="boardName">Board Description:</label>
-              <input type="text" class="form-control"  placeholder="details about this scrum" name="boardDescription" required>
+              <textarea type="text" class="form-control"  placeholder="details about this scrum" name="boardDescription" rows="4" cols="50" required></textarea>
               <small  class="form-text text-muted">Enter description about the scrum</small>
             </div>
 
@@ -136,7 +139,8 @@ $admin =  $_SESSION['is_admin'];
 
 
 
-  <div class="container" style="width:30%; height:50%; margin-bottom:5%;">
+  <div class="container" style="width:80%; height:50%; margin-bottom:5%;">
+
 
     <?php
 

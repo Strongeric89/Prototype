@@ -72,7 +72,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Card View ID <input type="text" name="bookId" id="passed" value=""readonly="readonly"/></h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Card View ID <input type="text" name="bookId" id="passed" value=""readonly="readonly"/> </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -85,7 +85,7 @@
               <div class="form-group">
 
                 <label for="cardName">Card Title:
-                  <input type="text" name="cardTitle"  value="" readonly="readonly"/>
+                  <input type="text" name="cardTitle"  value="" size="50" readonly="readonly"/>
               </label>
 
 
@@ -114,24 +114,48 @@
                   <hr>
 
                   <div class="form-group">
-                    <label for="cardLikeCount">Likes: <?php echo  '0'; ?></label>
+
+
+
+
 
 
 
 
                   <?php
+                  //add profile img above
+
+                  //display like count
                   $d = '<div class="col-xs-3">';
+                  //get number of likes for that card
+                  $numberofLikesQuery = 'SELECT USER_ID FROM votes WHERE CARD_ID = 2'; //MUST BE CHANged
+                  $result = $mysqli->query($numberofLikesQuery);
+                  $numResults = mysqli_num_rows($result);
 
 
 
-                        for ($x = 0; $x <= $numofcards3; $x++) {
+                        for ($x = 1; $x <= $numResults; $x++) {
+
+                          //get the profile pic for all people who liked this
+                          $row = $result->fetch_array();
+
+                                  $userId = $row['USER_ID'];
+
+                                  $img = "SELECT PROFILE_IMG FROM USER WHERE USER_ID ='" .$userId. "'";
+                                  $result2 = $mysqli->query($img);
 
 
-                        $d .= '
-                               <a href="#" class="thumbnail">
-                                    <img src="images/profiler.png" class="img-responsive" width="30px" height="30px" style="margin:1%;">
-                               </a>
-                           ';
+                                  while( $row2 = $result2->fetch_array()){
+                                    $pro = $row2['PROFILE_IMG'];
+                                    $d .= '
+                                           <a href="'.$pro.'" class="thumbnail">
+                                                <img src="'.$pro.'" class="img-responsive" width="30px" height="30px"  style="margin:1%;">
+                                           </a>
+                                       ';
+                                  }
+
+
+
 
 
 
@@ -141,11 +165,40 @@
                         echo $d;
 
                    ?>
+                       <label for="cardLikeCount">Likes: <?php echo  $numResults; ?></label>
 
-
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="like(this);">LIKE</button>
+                   <input type="text" name="likeBtnVal" id="likeBtnVal"  value="" readonly="readonly" hidden="hidden"/>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" id="likeBtn" name="likeBtn"  value="">LIKE</button>
 
                       </div>
+
+                      <script type="text/javascript">
+
+                      $('#likeBtn').on('click', function(e){
+
+                        var values = $('#likeBtnVal').val();
+                        var v = values.split('#');
+                        alert(v);
+                        var q = "INSERT INTO `votes` (`AGREE_COUNT`, `CARD_ID`, `USER_ID`) VALUES ( 1, "+v[0]+", '"+v[2]+"');";
+
+                        //create an entry into the votes table
+                        $.post('voteOnCard.php', {query: q}, function(data){
+                          if(data == 1){
+                            $("#likeBtn").html('UNLIKE');
+
+                          }
+
+
+
+                        });
+
+
+
+
+
+                      });
+
+                      </script>
 
   </form>
 
@@ -468,7 +521,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'" id="modalPass"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId. ' ' .$user_id. '" id="modalPass"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -546,6 +599,7 @@ $('#viewCardModal').on('show.bs.modal', function(e){
             $(e.currentTarget).find('input[name="cardCreated"]').val(content[3]);
                 $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
                     $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
+                      $(e.currentTarget).find('input[name="likeBtnVal"]').val(content[0] + '#' + content[4] + '#' + comps[2]);
   });
 
 

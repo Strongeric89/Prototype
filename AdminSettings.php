@@ -223,6 +223,7 @@ function sanitize($str)
 <tr>
 <th>#</th>
 <th>Name</th>
+<th> </th>
 <th>Remove</th>
 
 </tr>
@@ -254,7 +255,7 @@ function sanitize($str)
 
               <form class="" action="AdminSettings.php" method="post">
 
-              <td><input name="admin" value='.$AdminId.'></td>
+              <td><input name="admin" value='.$AdminId.' hidden="hidden"></td>
 
 
               <td><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="removeAdmin">Remove</button></td>

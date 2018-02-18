@@ -150,7 +150,7 @@ $admin =  $_SESSION['is_admin'];
       $pathtoFile = "userprofiles/" . $c_image;
       $imageFileType= pathinfo($pathtoFile,PATHINFO_EXTENSION);
 
-      // Allow certain file formats
+      //Allow certain file formats
       if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
       && $imageFileType != "gif" ) {
           echo "<script>

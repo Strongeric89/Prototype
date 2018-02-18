@@ -19,10 +19,12 @@
     $dateCreated = $row['DATE_ADDED'];
     $createdBy = $row['USER_ID'];
     $cardCat = $row['CARD_STATUS'];
+    $board = $row['BOARD_ID'];
+
   }
 
 
-  echo $id . '#'.$title. '#' .$description. '#' .$dateCreated. '#' .$createdBy. '#' .$cardCat;
+  echo $id . '#'.$title. '#' .$description. '#' .$dateCreated. '#' .$createdBy. '#' .$cardCat. '#' .$board;
 
 
 
