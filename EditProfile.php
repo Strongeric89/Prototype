@@ -92,39 +92,48 @@ $admin =  $_SESSION['is_admin'];
             <h2><?php echo $user_id; ?></h2>
           </div>
           <hr>
-  <form class="" action="EditProfile.php" method="post">
+  <form class="" action="EditProfile.php"  method="post">
+
 
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass1">
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass1" required>
 
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="inputPassword4">Confirm Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass2">
-      </div>
-    </div>
-
-      <div class="form-row" align="center">
-        <label for="input-folder-1">Upload File From Folder</label>
-    <div class="file-loading">
-        <input id="input-folder-1" type="file" webkitdirectory>
-    </div>
-    <br>
-    <script>
-    $(document).on('ready', function() {
-        $("#input-folder-1").fileinput({
-            browseLabel: 'Select Folder...'
-        });
-    });
-    </script>
-
+        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="pass2" required>
       </div>
 
+      <div class="form-group col-md-2">
+    <label for="inputPassword4">Update</label>
+      <button type="submit" class="btn btn-primary" name="submit">Update Password</button>
+    </div>
+    </div>
 
 
-    <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+
+
+
+
+
+
+
+
+      <form class="" action="EditProfile.php" enctype="multipart/form-data" method="post">
+        <div class="form-row" align="center">
+        <label for="profile picture">Profile Image: </label>
+            <br><input id="formElements" name="c_image" type="file" required />
+              <button type="submit" class="btn btn-primary" name="submitImage">Update Profile Image</button>
+          </div>
+
+
+      </div>
+
+      </form>
+
+
 
     <?php
 
