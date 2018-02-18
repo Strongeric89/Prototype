@@ -136,8 +136,8 @@ $admin =  $_SESSION['is_admin'];
 
               // for ($x = 1; $x <= $numofscrums; $x++) {
                   echo '  <tr>
-                      <td>'.$x.'</td>
-                      <td>Scrum '.$x.'</td>
+                      <td>'.$boardId.'</td>
+                      <td>'.$boardTitle.'</td>
 
                       <td><input type="checkbox" checked data-toggle="toggle"></td>';
 

@@ -93,7 +93,7 @@
               <hr>
 
               <div class="form-group">
-                <label for="cardDescription">Card Description:<input type="text" name="cardDescription"  value="" readonly="readonly"/></label>
+                <label for="cardDescription">Card Description:<textarea type="text" name="cardDescription" rows="4" cols="50" value="" readonly="readonly"/></textarea></label>
                 <hr>
                   </div>
 
@@ -114,7 +114,7 @@
                   <hr>
 
                   <div class="form-group">
-                    <label for="cardLikeCount">Likes: <?php echo $numofcards3 + 1; ?></label>
+                    <label for="cardLikeCount">Likes: <?php echo  '0'; ?></label>
 
 
 
@@ -542,7 +542,7 @@ $('#viewCardModal').on('show.bs.modal', function(e){
     //alert(content[5]);
     $(e.currentTarget).find('input[name="bookId"]').val(content[0]);
     $(e.currentTarget).find('input[name="cardTitle"]').val(content[1]);
-        $(e.currentTarget).find('input[name="cardDescription"]').val(content[2]);
+        $(e.currentTarget).find('textarea[name="cardDescription"]').val(content[2]);
             $(e.currentTarget).find('input[name="cardCreated"]').val(content[3]);
                 $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
                     $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
