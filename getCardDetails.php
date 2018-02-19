@@ -1,6 +1,6 @@
 <?php
   include 'db/database.php';
-
+  session_start();
   $query = $_POST['query'];
   //echo $query;
 
@@ -22,9 +22,12 @@
     $board = $row['BOARD_ID'];
 
   }
-
-
+  //create session for CARDID
+  $_SESSION['CARDID'] = $id;
   echo $id . '#'.$title. '#' .$description. '#' .$dateCreated. '#' .$createdBy. '#' .$cardCat. '#' .$board;
+
+
+
 
 
 

@@ -1,6 +1,8 @@
 <?php
   include 'db/database.php';
+
       $boardId = $_GET['boardId'];
+
 
 
       $numofcards3 = 4;
@@ -20,6 +22,7 @@
           session_destroy();
           echo "<script>window.open('login.php','_self')</script>";
       }
+        $_SESSION['CARDID'] = 3;
       //locally used
       $name = $_SESSION['name'];
       $user_id = $_SESSION['user_id'];
@@ -122,7 +125,9 @@
 
                   $d = '<div class="col-xs-3">';
                   //get number of likes for that card
-                  $numberofLikesQuery = 'SELECT USER_ID, VOTE_ID FROM votes WHERE CARD_ID = 1'; //MUST BE CHANged - need to pass over CARD_ID
+
+
+                  $numberofLikesQuery = 'SELECT USER_ID, VOTE_ID FROM votes WHERE BOARD_ID = '.$boardId.' AND CARD_ID =5'; //MUST BE CHANged - need to pass over CARD_ID
                   $result = $mysqli->query($numberofLikesQuery);
                   $numResults = mysqli_num_rows($result);
 
@@ -167,7 +172,7 @@
 
                         var values = $('#likeBtnVal').val();
                         var v = values.split('#');
-                        //alert(v);
+                        //alert(v[0]);
 
 
                         var q = "INSERT INTO `votes` (`AGREE_COUNT`, `CARD_ID`, `USER_ID`, `BOARD_ID`) VALUES ( 1, "+v[0]+", '"+v[1]+"', "+v[2]+");";
@@ -586,6 +591,9 @@ $('#viewCardModal').on('show.bs.modal', function(e){
                 $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
                     $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
                       $(e.currentTarget).find('input[name="likeBtnVal"]').val(content[0] + '#' + comps[2] + '#' + comps[0]);
+
+
+
   });
 
 

@@ -3,7 +3,8 @@ ob_start();
 $host = "localhost";
 $db_name = "Saprello";
 $user = "root";
-$password = "G+66jFr)d&SX"; // for xamp login
+///$password = "G+66jFr)d&SX"; // for xamp login
+$password=  "";
 $mysqli = new mysqli($host, $user, $password, $db_name);
 
 
