@@ -3,11 +3,6 @@
 
       $boardId = $_GET['boardId'];
 
-
-
-      $numofcards3 = 4;
-
-
       if(isset($_SESSION['user_id'])){
           echo "<script>window.open('index.php','_self')</script>";
       }
@@ -22,12 +17,13 @@
           session_destroy();
           echo "<script>window.open('login.php','_self')</script>";
       }
-        $_SESSION['CARDID'] = 3;
+
       //locally used
       $name = $_SESSION['name'];
       $user_id = $_SESSION['user_id'];
       $profiler = $_SESSION['profile_img'];
       $admin =  $_SESSION['is_admin'];
+
 
 
       //get board specific info
@@ -66,12 +62,13 @@
 </script>
 
 
-    <title>Boards Prototype</title>
+    <title>Boards Prototype <?php     echo $VALUE; ?></title>
   </head>
   <body>
 
     <!-- View Card Board Modal -->
     <div class="modal fade" id="viewCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -82,10 +79,11 @@
           </div>
           <div class="modal-body">
 
-
-
             <form name="form1" action="boards.php?boardId=<?php echo $boardId;?>" method="get" >
               <div class="form-group">
+
+                  <?php     echo $_SESSION['SESS']; ?>
+
 
                 <label for="cardName">Card Title:
                   <input type="text" name="cardTitle"  value="" size="50" readonly="readonly"/>
@@ -96,6 +94,8 @@
               <hr>
 
               <div class="form-group">
+
+
                 <label for="cardDescription">Card Description:<textarea type="text" name="cardDescription" rows="4" cols="50" value="" readonly="readonly"/></textarea></label>
                 <hr>
                   </div>
@@ -125,9 +125,7 @@
 
                   $d = '<div class="col-xs-3">';
                   //get number of likes for that card
-
-
-                  $numberofLikesQuery = 'SELECT USER_ID, VOTE_ID FROM votes WHERE BOARD_ID = '.$boardId.' AND CARD_ID =5'; //MUST BE CHANged - need to pass over CARD_ID
+                  $numberofLikesQuery = 'SELECT USER_ID, VOTE_ID, CARD_ID FROM votes WHERE BOARD_ID ='.$boardId.' AND CARD_ID =' .$_SESSION['CARDID'] ; //MUST BE CHANged - need to pass over CARD_ID
                   $result = $mysqli->query($numberofLikesQuery);
                   $numResults = mysqli_num_rows($result);
 
@@ -137,6 +135,7 @@
                           $row = $result->fetch_array();
 
                                   $userId = $row['USER_ID'];
+                                    $cardId = $row['CARD_ID'];
 
                                   $img = "SELECT PROFILE_IMG FROM USER WHERE USER_ID ='" .$userId. "'";
                                   $result2 = $mysqli->query($img);
@@ -156,13 +155,32 @@
 
                         echo $d;
 
+
+
+
                    ?>
                        <label for="cardLikeCount">Likes: <?php
                              //display like count
                        echo  $numResults; ?></label>
 
                    <input type="text" name="likeBtnVal" id="likeBtnVal"  value="" readonly="readonly" hidden="hidden"/>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary" id="likeBtn" name="likeBtn"  value="">LIKE</button>
+
+                  <a href="<?php echo $cardId;?>"><button type="button" class="btn btn-lg btn-block btn-outline-primary" id="likeBtn" name="likeBtn<?php echo $_SESSION['SESS'];?>"  value="0">LIKE</button></a>
+
+
+
+                    <?php
+                      //change the like button description
+                      $likeB = "SELECT VOTE_ID FROM votes WHERE BOARD_ID = ".$boardId." AND CARD_ID = ".$_SESSION['CARDID']."AND USER_ID ='" .$user_id."';";
+                      $resultLike = $mysqli->query($likeB);
+
+                      if($resultLike == 1){
+                            //change like button text
+
+
+                      }
+
+                     ?>
 
                       </div>
 
@@ -172,15 +190,15 @@
 
                         var values = $('#likeBtnVal').val();
                         var v = values.split('#');
-                        //alert(v[0]);
+                        alert('thank you for liking!');
 
 
                         var q = "INSERT INTO `votes` (`AGREE_COUNT`, `CARD_ID`, `USER_ID`, `BOARD_ID`) VALUES ( 1, "+v[0]+", '"+v[1]+"', "+v[2]+");";
-                        alert(q);
+                        //alert(q);
                         //create an entry into the votes table
                         $.post('voteOnCard.php', {query: q}, function(data){
                           if(data == 1){
-                            $("#likeBtn").html('UNLIKE');
+                            //$("#likeBtn").html('UNLIKE');
 
                           }
 
@@ -197,7 +215,11 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="refresh"  >Cancel</button>
+
+
+
+
 
           </div>
         </div>
@@ -217,6 +239,7 @@
             </button>
           </div>
           <div class="modal-body">
+
 
             <form class="" action="boards.php?boardId=<?php echo $boardId;?>" method="post">
 
@@ -352,7 +375,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId. ' ' .$user_id. '"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -433,7 +456,7 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId.'"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" id="clickme" data-book-id="' .$boardId . ' ' .$cardId. ' ' .$user_id. '"  >View</button>';
 
                 if($nameforCard == $name){
                   echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
@@ -512,10 +535,10 @@
 
 
 
-                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId. ' ' .$user_id. '" id="modalPass"  >View</button>';
+                $button = '<button type="button" class="btn btn-lg btn-block btn-outline-primary" data-toggle="modal" data-target="#viewCardModal" data-book-id="' .$boardId . ' ' .$cardId. ' ' .$user_id. '" id="modalPass">View</button>';
 
                 if($nameforCard == $name){
-                  echo '  <div class="card btn-social" style="margin:0;" draggable="true" ondragstart="drag(event)" id="drag1">
+                  echo '  <div class="card btn-social" style="margin:0;">
                       <div class="card-body" style="background-color:#dce5f4;">
                         <h5 class="card-title">'.$cardTitle.'</h5>
                         <h6 class="card-subtitle mb-2 text-muted">'.$cardDescription.'</h6>
@@ -569,9 +592,12 @@
 </div>
 
 
+
 <script type="text/javascript">
 
 $('#viewCardModal').on('show.bs.modal', function(e){
+
+
   //get data from button
   var bookId = $(e.relatedTarget).data('book-id');
   var comps = bookId.split(" ");
@@ -580,10 +606,11 @@ $('#viewCardModal').on('show.bs.modal', function(e){
 
 
   //post q to getCardDetails
-  $.post('getCardDetails.php', {query: q}, function(data){
-    //call pass the data to modal here
+  $.post('getCardDetails.php', {query: q, c:comps[1]}, function(data){
+
     var content = data.split("#");
-    //alert(content[5]);
+    //alert(content[0]);
+
     $(e.currentTarget).find('input[name="bookId"]').val(content[0]);
     $(e.currentTarget).find('input[name="cardTitle"]').val(content[1]);
         $(e.currentTarget).find('textarea[name="cardDescription"]').val(content[2]);
@@ -591,6 +618,29 @@ $('#viewCardModal').on('show.bs.modal', function(e){
                 $(e.currentTarget).find('input[name="cardBy"]').val(content[4]);
                     $(e.currentTarget).find('input[name="cardCat"]').val(content[5]);
                       $(e.currentTarget).find('input[name="likeBtnVal"]').val(content[0] + '#' + comps[2] + '#' + comps[0]);
+
+                      var d = data.split('#');
+                      //alert('js' + d[0]);
+
+                      var dataString = 'lang=' + d[0];
+
+                     $.ajax({
+
+                         type: "POST",
+                         url: "update.php",
+                         data: dataString,
+                         dataType: 'json',
+                         cache: false,
+                         success: function(response) {
+
+
+
+                                 var jvalue = response.message;
+
+
+
+                             }
+                     });
 
 
 
@@ -600,6 +650,9 @@ $('#viewCardModal').on('show.bs.modal', function(e){
 });
 
 </script>
+
+
+
 
 
 
@@ -667,6 +720,7 @@ function sanitize($str)
     $str = htmlspecialchars($str);
     return $str;
 }
+
 
 
  ?>

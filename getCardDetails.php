@@ -2,6 +2,7 @@
   include 'db/database.php';
   session_start();
   $query = $_POST['query'];
+
   //echo $query;
 
   $title = '';
@@ -20,10 +21,12 @@
     $createdBy = $row['USER_ID'];
     $cardCat = $row['CARD_STATUS'];
     $board = $row['BOARD_ID'];
+      $_SESSION['CARDID'] = $id;
 
   }
+
   //create session for CARDID
-  $_SESSION['CARDID'] = $id;
+
   echo $id . '#'.$title. '#' .$description. '#' .$dateCreated. '#' .$createdBy. '#' .$cardCat. '#' .$board;
 
 

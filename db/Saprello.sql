@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 18, 2018 at 10:03 PM
--- Server version: 5.7.18
--- PHP Version: 5.6.30
+-- Host: 127.0.0.1
+-- Generation Time: Feb 19, 2018 at 11:38 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Saprello`
+-- Database: `saprello`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,14 @@ CREATE TABLE `board` (
   `BOARD_DISPLAY` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `board`
+--
+
+INSERT INTO `board` (`BOARD_ID`, `BOARD_TITLE`, `BOARD_DESCRIPTION`, `DATE_ADDED`, `BOARD_DISPLAY`) VALUES
+(3, 'Test Scrum', 'this is a test', '2018-02-19', 1),
+(4, 'Test 2', 'test sdfsdfsdf', '2018-02-19', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +59,14 @@ CREATE TABLE `card` (
   `BOARD_ID` int(11) NOT NULL,
   `USER_ID` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `card`
+--
+
+INSERT INTO `card` (`CARD_ID`, `DATE_ADDED`, `TITLE`, `DESCRIPTION`, `CARD_STATUS`, `BOARD_ID`, `USER_ID`) VALUES
+(5, '2018-02-19', 'This is a new Card', 'Stuff', 'mad', 3, 'i348507'),
+(6, '2018-02-19', 'test board 3', 'sdfsdfsdf', 'mad', 3, 'i000000');
 
 -- --------------------------------------------------------
 
@@ -136,9 +152,10 @@ ALTER TABLE `user`
 -- Indexes for table `votes`
 --
 ALTER TABLE `votes`
-  ADD PRIMARY KEY (`VOTE_ID`,`BOARD_ID`),
+  ADD PRIMARY KEY (`CARD_ID`,`BOARD_ID`,`USER_ID`),
   ADD KEY `USER_ID` (`USER_ID`),
   ADD KEY `CARD_ID` (`CARD_ID`),
+  ADD KEY `VOTE_ID` (`VOTE_ID`),
   ADD KEY `BOARD_ID` (`BOARD_ID`);
 
 --
@@ -149,17 +166,20 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `board`
 --
 ALTER TABLE `board`
-  MODIFY `BOARD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `BOARD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
 --
 -- AUTO_INCREMENT for table `card`
 --
 ALTER TABLE `card`
-  MODIFY `CARD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CARD_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
 --
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `VOTE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `VOTE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
 --
 -- Constraints for dumped tables
 --
@@ -182,9 +202,9 @@ ALTER TABLE `subscribed`
 -- Constraints for table `votes`
 --
 ALTER TABLE `votes`
-  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `USER` (`USER_ID`),
-  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`CARD_ID`) REFERENCES `CARD` (`CARD_ID`),
-  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`BOARD_ID`) REFERENCES `BOARD` (`BOARD_ID`);
+  ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`USER_ID`),
+  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`CARD_ID`) REFERENCES `card` (`CARD_ID`),
+  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`BOARD_ID`) REFERENCES `board` (`BOARD_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
